@@ -1,0 +1,8 @@
+.element__like {
+  background-image: url(../../../images/like_vector.png);
+  width: 20px;
+  height: 18px;
+  margin-right: 30px;
+  background-size: contain;
+  background-position: center;
+}

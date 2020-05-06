@@ -1,0 +1,22 @@
+
+.footer__copyrigth {
+  margin: 66px 0px 60px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #545454;
+}
+
+@media (max-width:900px) {
+  .footer__copyrigth {
+    margin: 48px 19px 36px;
+  }
+}
+
+@media (max-width:320px) {
+  .footer__copyrigth {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
