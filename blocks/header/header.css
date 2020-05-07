@@ -1,7 +1,9 @@
 @import url(./__logo/header__logo.css);
 
 .header {
+  margin: 0px auto;
+  width: 888px;
   min-height: 74px;
   padding-top: 45px;
-  border-bottom: 1px solid rgba(84, 84, 84, .7);
+  border-bottom: 1px solid rgba(84, 84, 84, .7);w
 }

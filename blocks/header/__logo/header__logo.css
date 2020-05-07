@@ -6,9 +6,14 @@
 }
 
 
-@media (max-width: 320px) {
+@media (max-width: 900px) {
   .header__logo {
     margin-left: 27px;
+  }
+}
+
+@media (max-width: 320px) {
+  .header__logo {
     width: 103px;
     height: 25px;
   }
