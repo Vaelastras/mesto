@@ -12,12 +12,10 @@ background-position: center;
 margin-left: 17px;
 }
 
-
 .profile__edit-button:hover {
   cursor: pointer;
   opacity: .6;
 }
-
 
 @media (max-width: 700px) {
   .profile__edit-button {
