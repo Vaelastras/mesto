@@ -1,0 +1,9 @@
+@import url(./_type_name/popup__input_type_name.css);
+@import url(./_type_job/popup__input_type_job.css);
+
+.popup__input {
+  margin-left: 36px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  width: calc(100% - 72px);
+}
