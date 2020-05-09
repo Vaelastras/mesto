@@ -1,12 +1,12 @@
 .profile__avatar {
-  width: 125px;
+  min-width: 125px;
   height: 125px;
   background-image: url(../../../images/strangefox.jpg);
   border-radius: 50%;
-  margin-right: 30px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  object-fit: cover;
 }
 
 @media (max-width:700px) {
