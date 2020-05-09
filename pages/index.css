@@ -9,10 +9,4 @@
 @import url(../blocks/element/element.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/popup/popup.css);
-
-
-
-
-div, h1, h2, h3, p, img, section {
-  border: 1px solid seagreen;
-}
+@import url(../blocks/popup/_opened/popup_opened.css);
