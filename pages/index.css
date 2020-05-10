@@ -10,8 +10,3 @@
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
-
-
-div, section, header, footer, h1, h2, p, img, button  {
-  border: 1px solid red;
-}
