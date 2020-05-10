@@ -4,7 +4,7 @@
   background-color: #000;
   position: relative;
   margin: 0px auto;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

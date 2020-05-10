@@ -11,7 +11,7 @@
 <body class="page">
   <div class="root">
     <header class="header">
-      <img class="header__logo" src="./images/logo.png" alt="Логотип проекта 'Mesto'">
+      <img class="header__logo" src="./images/logo.svg" alt="Логотип проекта 'Mesto'">
     </header>
     <main class="content">
       <section class="profile">
@@ -23,14 +23,14 @@
           </div>
           <p class="profile__job-description">Исследователь океана</p>
         </div>
-        <button class="profile__addbutton"></button>
+        <button class="profile__add-button" type="button"></button>
       </section>
       <section class="elements">
         <div class="element">
           <img class="element__photo" src="./images/photo-grid-sochi.jpg" alt="Сочи">
           <div class="element__row">
             <h2 class="element__title">Сочи</h2>
-            <div class="element__like"></div>
+            <button class="element__like" type="button"></button>
           </div>
         </div>
         <div class="element">
@@ -74,11 +74,11 @@
       <p class="footer__copyrigth">&copy; 2020 Mesto Russia</p>
     </footer>
     <div class="popup">
-      <form class="popup__container">
+      <form class="popup__container" name="popup-form" method="GET" action="#">
         <button class="popup__close" type="reset"></button>
-        <p class="popup__title">Редактировать профиль</p>
-        <input class="popup__input popup__input_type_name" type="text" placeholder="Введите имя" required>
-        <input class="popup__input popup__input_type_job" type="text" placeholder="Введите профессию" required>
+        <h3 class="popup__title">Редактировать профиль</h3>
+        <input class="popup__input popup__input_type_name" type="text" name="name" placeholder="Введите имя" required>
+        <input class="popup__input popup__input_type_job" type="text" name="job" placeholder="Введите профессию" required>
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
     </div>
