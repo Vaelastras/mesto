@@ -4,5 +4,6 @@
 @import url(./__like/element__like.css);
 
 .element {
-  
+  background: white;
+  border-radius: 10px;
 }
