@@ -5,4 +5,12 @@
   margin-right: 30px;
   background-size: contain;
   background-position: center;
+  background-color: #FFF;
+  border: none;
+}
+
+.element__like:hover {
+  cursor: pointer;
+  opacity: .6;
+  transform: scale(1.2);
 }
