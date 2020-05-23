@@ -1,4 +1,4 @@
-.popup__close {
+.popup-image__close {
   position: absolute;
   top: -40px;
   right: -40px;
@@ -13,17 +13,11 @@
   border:none;
 }
 
-.popup__close:hover {
+.popup-image__close:hover {
   cursor: pointer;
   opacity: .6;
 }
 
-.popup__close:focus {
+.popup-image__close:focus {
   outline: none;
-}
-
-@media (max-width: 500px) {
-  .popup__close {
-      right: 0px;
-  }
 }

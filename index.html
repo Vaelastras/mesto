@@ -19,15 +19,25 @@
         <div class="profile__info">
           <div class="profile__row">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button" type="button"></button>
+            <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
           </div>
           <p class="profile__job-description">Исследователь океана</p>
         </div>
-        <button class="profile__add-button" type="button"></button>
+        <button class="profile__add-button" type="button" aria-label="Добавить элемент"></button>
       </section>
       <section class="elements">
-        <div class="element">
+        <template id="element">
+          <div class="element">
+            <img class="element__photo" src="./images/photo-grid-sochi.jpg" alt=" ">
+            <button class="element__trash" type="button" aria-label="Удалить"></button>
+            <div class="element__row">
+                <h2 class="element__title">Сочи</h2>
+                <button class="element__like" type="button" aria-label="поставить 'лайк'"></button>
+            </div>
+        </template>
+        <!-- <div class="element">
           <img class="element__photo" src="./images/photo-grid-sochi.jpg" alt="Сочи">
+          <button class="element__trash" type="button"></button>
           <div class="element__row">
             <h2 class="element__title">Сочи</h2>
             <button class="element__like" type="button"></button>
@@ -67,7 +77,7 @@
             <h2 class="element__title">Куршская коса</h2>
             <button class="element__like" type="button"></button>
           </div>
-        </div>
+        </div> -->
       </section>
     </main>
     <footer class="footer">
@@ -75,13 +85,35 @@
     </footer>
     <div class="popup">
       <form class="popup__container" name="popup-form" method="GET" action="#">
-        <button class="popup__close" type="reset"></button>
+        <button class="popup__close" type="reset" aria-label="закрыть"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
         <input class="popup__input popup__input_type_name" type="text" name="name" placeholder="Введите имя" required>
         <input class="popup__input popup__input_type_job" type="text" name="job" placeholder="Введите профессию" required>
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
     </div>
+
+    <div class="popup-newplace">
+        <form class="popup-newplace__container" name="popup-form" method="GET" action="#">
+            <button class="popup-newplace__close" type="reset" aria-label="Закрыть"></button>
+            <p class="popup-newplace__title">Новое место</p>
+            <input class="popup-newplace__input popup-newplace__input_type_name" type="text" name="name" placeholder="Название"  required>
+            <input class="popup-newplace__input popup-newplace__input_type_url" type="text" name="url" placeholder="Ссылка на картинку"  required>
+            <button class="popup-newplace__submit" type="submit">Создать</button>
+        </form>
+    </div>
+    <div class="popup-image">
+      <div class="popup-image__container">
+          <button class="popup-image__close" type="reset" aria-label="Закрыть"></button>
+          <img class="popup-image__picture" src=' ' alt=" ">
+          <p class="popup-image__title"></p>
+      </div>
+     </div>
+  </div>
+
+
+
+
   </div>
   <script src="./pages/index.js"></script>
 </body>

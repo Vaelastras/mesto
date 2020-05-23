@@ -1,4 +1,4 @@
-.popup__container {
+.popup-newplace__container {
   position: relative;
   margin: 0 auto;
   align-self: center;
@@ -9,7 +9,7 @@
 }
 
 @media (max-width: 500px) {
-  .popup__container {
+  .popup-newplace__container {
     max-width: 320px;
   }
 }
