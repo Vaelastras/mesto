@@ -13,4 +13,4 @@
 @import url(../blocks/popup-newplace/popup-newplace.css);
 @import url(../blocks/popup-newplace/_opened/popup-newplace_opened.css);
 @import url(../blocks/popup-image/popup-image.css);
-@import url(../blocks/popup-image/__opened/popup-image__opened.css);
+@import url(../blocks/popup-image/_opened/popup-image_opened.css);
