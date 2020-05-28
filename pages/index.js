@@ -23,7 +23,6 @@ const popupPlaceUrl = document.querySelector('.popup-newplace__input_type_url');
 const popupImagePhotoUrl = document.querySelector('.popup-image__picture') //ищем картинку места (попап 3)
 const popupImageTitle = document.querySelector(".popup-image__title")// ищем название места (попап 3)
 
-
 const elements = document.querySelector('.elements'); //определяем место где будут создаваться карточки
 
 
@@ -57,24 +56,21 @@ const initialCards = [
   }
 ]
 const elementTemplate = document.querySelector('#template').content; // ищем шаблон темплейта для клонирования карточек
+
+
+
 // Функции
 
-//f открытия попапа профиля
 
 function openCloseEditPopup () {
-  if (!popup.classList.contains('popup_opened')) {
-    popup.classList.add('popup_opened');
-    nameInput.value = currentName.textContent;
-    jobInput.value = currentJob.textContent;
+  if (!popup.classList.contains('popup_opened')) { //если на элементе нет класса
+    popup.classList.add('popup_opened');           // то добавим
+    nameInput.value = currentName.textContent;     // а заодно и подставим в поле значение с страницы
+    jobInput.value = currentJob.textContent;       // а заодно и подставим в поле значение с страницы
   } else {
-      popup.classList.remove('popup_opened');
+      popup.classList.remove('popup_opened');     // или удалим класс и попапчик скроется
   }
 }
-
-// //f закрытия попапа профиля
-// function closeEditPopup () {
-
-// }
 
 //f получения данных в попап с страницы
 function formSubmitHandler(event) {
@@ -86,23 +82,18 @@ function formSubmitHandler(event) {
 
 function openClosePlacePopup() {
   popupPlace.classList.toggle('popup-newplace_opened');
-  console.log('открыт попап добавления места')
 }
 
 function openCloseImagePopup() {
-  popupImage.classList.toggle('popup-image_opened')
-  console.log('открыт попап имаги');
+  popupImage.classList.toggle('popup-image_opened');
 }
-
-// потом передалаю открытие и закрытие попапов по одном
-
 
 function renderCard(name, link) {
   const card = elementTemplate.cloneNode(true); // клонируем шаблон
   const cardImage = card.querySelector('.element__photo'); // находим изображение
   const cardTitle = card.querySelector('.element__title'); // находим титл
   const likeButton = card.querySelector('.element__like'); // находим лайк
-  const trashButton = card.querySelector('.element__trash'); // находим кнопку удаления
+  const removeButton = card.querySelector('.element__trash'); // находим кнопку удаления
 
   cardTitle.textContent = name; // присваиваем текст на параметр функции
   cardImage.src = link; // присваиваем сслку на параметр
@@ -111,25 +102,24 @@ function renderCard(name, link) {
   //вешаем слушатель на лайк, при клике - меняем класс
   likeButton.addEventListener('click', (event) => event.target.classList.toggle('element__like_active'));
   //вешаем слушатель на кнопку удаления карточки, при клике - сносим всю карточку. Из массива пока что не удаляем.
-  trashButton.addEventListener('click', (event) => event.target.closest('.element').remove());
+  removeButton.addEventListener('click', (event) => event.target.closest('.element').remove());
 
-/* открываем увеличенное изображение в попапе */
-  cardImage.addEventListener('click', function () {
+// создадим увеличенное изображение в попапе
+  cardImage.addEventListener('click', function () {  //слушатель клика на фотографию
     const popupImagePhotoUrl = document.querySelector('.popup-image__picture') //ищем картинку места (попап 3)
     const popupImageTitle = document.querySelector('.popup-image__title')// ищем название места (попап 3)
 
-    popupImageTitle.textContent = name;
-    popupImagePhotoUrl.src = link;
-    popupImagePhotoUrl.setAttribute('alt', name);
-     console.log(popupImagePhotoUrl,'это элемент картинки');
-    openCloseImagePopup()
-  });
+    popupImageTitle.textContent = name;  // берем название фото из объекта
+    popupImagePhotoUrl.src = link; // берем ссылку из объекта
+    popupImagePhotoUrl.setAttribute('alt', name); // установим альт
 
-  return card;
+    openCloseImagePopup()
+
+  });
+  return card;   // возвращаем карту с элементами слушателями и параметрами
 }
- /*
- добавляем каждую карту на страницу. данные берутся из массива initial.cards.
- Потом как-нибудь сделаю, чтобы новые карты  добавлялись в массив */
+// добавляем каждую карту на страницу. данные берутся из массива initial.cards.
+ //TODO:, сделать чтобы новые карты добавлялись в массив */
 initialCards.forEach(element => elements.append(renderCard(element.name, element.link)));
 
 
@@ -139,10 +129,10 @@ function renderTemplate(event) {
   event.preventDefault();
   const element = renderCard(popupPlaceName.value, popupPlaceUrl.value); //вставляем ссылку и название карточки
 
-  elements.prepend(element);
+  elements.prepend(element); // добавляем элемент в начало секции
 
-  popupPlaceName.value = '';
-  popupPlaceUrl.value = '';
+  popupPlaceName.value = ''; // обнуляем значение инпута
+  popupPlaceUrl.value = ''; // обнуляем значение инпута
 
   openClosePlacePopup()
 };
