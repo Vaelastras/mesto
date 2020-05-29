@@ -61,7 +61,6 @@ const elementTemplate = document.querySelector('#template').content; // ищем
 
 // Функции
 
-
 function openCloseEditPopup () {
   if (!popup.classList.contains('popup_opened')) { //если на элементе нет класса
     popup.classList.add('popup_opened');           // то добавим

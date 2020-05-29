@@ -7,6 +7,15 @@
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
   width: calc(100% - 72px);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  padding-bottom: 13px;
+}
+
+.popup__input:focus {
+  outline: none;
 }
 
 .popup__input:last-of-type {
