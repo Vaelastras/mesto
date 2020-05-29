@@ -1,8 +1,16 @@
+@import url(./_type/popup_type_edit-profile.css);
+@import url(./_type/popup_type_new-place.css);
+@import url(./_type/popup_type_image.css);
+
 @import url(./__container/popup__container.css);
 @import url(./__close/popup__close.css);
 @import url(./__title/popup__title.css);
 @import url(./__input/popup__input.css);
 @import url(./__submit/popup__submit.css);
+
+@import url(./__image-container/popup__image-container.css);
+@import url(./__image/popup__image.css);
+@import url(./__image-title/popup__image-title.css);
 
 
 .popup {
@@ -12,6 +20,8 @@
   position: fixed;
   top: 0;
   left: 0;
+  align-content: center;
+  justify-content: center;
   background-color: rgba(0, 0, 0, .5);
   visibility: hidden;
   opacity: 0;
