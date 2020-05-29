@@ -45,7 +45,7 @@
       <p class="footer__copyrigth">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <div class="popup">
+    <div class="popup popup_type_edit-profile">
       <form class="popup__container" name="popup-form" method="GET" action="#">
         <button class="popup__close" type="reset" aria-label="закрыть"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
@@ -55,13 +55,13 @@
       </form>
     </div>
 
-    <div class="popup-newplace">
-        <form class="popup-newplace__container" name="popup-form" method="GET" action="#">
-            <button class="popup-newplace__close" type="reset" aria-label="Закрыть"></button>
-            <p class="popup-newplace__title">Новое место</p>
-            <input class="popup-newplace__input popup-newplace__input_type_name" type="text" name="name" placeholder="Название"  required>
-            <input class="popup-newplace__input popup-newplace__input_type_url" type="text" name="url" placeholder="Ссылка на картинку"  required>
-            <button class="popup-newplace__submit" type="submit">Создать</button>
+    <div class="popup popup_type_new-place">
+        <form class="popup__container" name="popup-form" method="GET" action="#">
+            <button class="popup__close" type="reset" aria-label="Закрыть"></button>
+            <p class="popup__title">Новое место</p>
+            <input class="popup__input popup__input_type_title" type="text" name="name" placeholder="Название" required>
+            <input class="popup__input popup__input_type_url" type="text" name="url" placeholder="Ссылка на картинку" required>
+            <button class="popup__submit" type="submit">Создать</button>
         </form>
     </div>
     <div class="popup-image">
