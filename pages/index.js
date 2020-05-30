@@ -1,16 +1,11 @@
 //переменные
 const popupParent = document.querySelector('.popups'); // общая секция для всех попапов
-// const popup = document.querySelector('.popup');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');// ищем обычный попап (попап1)
 const popupPlace = document.querySelector('.popup_type_new-place'); // ищем попап новых мест (попап 2)
 const popupImage = document.querySelector('.popup_type_image'); //ищем попап открытия изображений (попап 3)
-
 const editProfileButton = document.querySelector('.profile__edit-button'); // ищем кнопку вызова попапа редактирования профиля
 const addPlaceButton = document.querySelector('.profile__add-button'); // ищем кнопку вызова попапа добавления нового места
-
-// const checkContainer = document.querySelector('.popup__container'); // опрередяем форму, откуда будем тянуть инпуты имени пользователя и его профессии (попап 1)
 const checkPlaceContainer = document.querySelector('.popup__container_type_card'); // определяем форму, откуда будем тянуть инпуты названия места и ссылку (попап2)
-// const closePopupButton = document.querySelector('.popup__close'); // ищем кнопку закрытия попапов
 const currentName = document.querySelector('.profile__title'); // ищем текущее имя юзера на странице
 const currentJob = document.querySelector('.profile__job-description'); //ищем текущуюю профессию юзера на странице
 const nameInput = document.querySelector('.popup__input_type_name'); // ищем инпут имени (попап 1)
@@ -83,14 +78,13 @@ function formSubmitHandler(evt) {
 
 // функция постановки лаек
 function toggleLike(evt) {
-  evt.target.classList.toggle('element__like_active')
+  evt.target.classList.toggle('element__like_active');
 }
 
 //функция удаления карточек
 function removeCard(evt) {
   evt.target.closest('.element').remove()
 }
-
 
 //отображаем карточку пользователя
 function renderUserCard(event) {
@@ -118,20 +112,18 @@ function renderCard(name, link) {
 
   pasteCardInDocument(card);   // возвращаем карту с элементами слушателями и параметрами
 }
-
 // добавляем каждую карту на страницу. данные берутся из массива initial.cards.
 function loadingCards() {
   initialCards.forEach(showTemplateCardOnPage)
 };
 
-//insert-card to page
-function pasteCardInDocument(element) {
-  elements.prepend(element)
-}
-
-
+// отрисовать карточки из шаблона
 function showTemplateCardOnPage(element) {
   renderCard(element.name, element.link)
+};
+//добавить карты на страницу.
+function pasteCardInDocument(element) {
+  elements.prepend(element)
 };
 
 function showPictureinPopup(evt) {
