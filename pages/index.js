@@ -13,7 +13,7 @@ const jobInput = document.querySelector('.popup__input_type_job'); //ищем и
 const popupPlaceName = document.querySelector('.popup__input_type_title'); // ищем инпут названия места (попап 2)
 const popupPlaceUrl = document.querySelector('.popup__input_type_url'); // ищем инпут ссылки (попап 2)
 const elements = document.querySelector('.elements'); //определяем место где будут создаваться карточки
-const popupImagePhoto = document.querySelector('.popup__image') //ищем картинку места (попап имг)
+const popupImagePhotoUrl = document.querySelector('.popup__image') //ищем картинку места (попап имг)
 const popupImageTitle = document.querySelector('.popup__image-title')// ищем название места (попап имг)
 
 /* определяем массив изначальных элементов. каждый элемент - объект с свойствами
@@ -51,7 +51,7 @@ const elementTemplate = document.querySelector('#template').content; // ищем
 
 //открытие/закрытие попапов
 function openPopup(element) {
-  element.classList.add('popup_active');
+  element.classList.toggle('popup_active');
 }
 
 // закрытие попапов кнопкой
@@ -61,16 +61,15 @@ function closePopup(evt) {
   }
 }
 
-//получить текущее имя пользователя в инпуты //get- это "получить" а не вернуть.
-//функция получает данные с страницы в попап
-function openProfileEditPopup() {
+//получить текущее имя пользователя в инпуты
+function getProfileName() {
   nameInput.value = currentName.textContent; // а заодно и подставим в поле значение с страницы
   jobInput.value = currentJob.textContent;
   openPopup(popupEditProfile);
 }
 
-//f получения данных в попап с страницы //
-function profileFormSubmitHandler(evt) {
+//f получения данных в попап с страницы
+function formSubmitHandler(evt) {
   evt.preventDefault();
   currentName.textContent = nameInput.value;
   currentJob.textContent = jobInput.value;
@@ -87,11 +86,11 @@ function removeCard(evt) {
   evt.target.closest('.element').remove()
 }
 
-//отображаем карточку пользователя //cvtyf
-function placeFormSubmitHandler(event) {
+//отображаем карточку пользователя
+function renderUserCard(event) {
   event.preventDefault();
 
-  renderCard(popupPlaceName.value, popupPlaceUrl.value);
+  addCard(popupPlaceName.value, popupPlaceUrl.value);
   popupPlaceName.value = ''; // обнуляем значение инпута
   popupPlaceUrl.value =''; // обнуляем значение инпута
   openPopup(popupPlace)
@@ -109,39 +108,43 @@ function renderCard(name, link) {
   cardImage.setAttribute('alt', name); // устанавливаем аттрибут альт для картинки с названием нейма
   likeButton.addEventListener('click', toggleLike);
   removeButton.addEventListener('click', removeCard);
-  cardImage.addEventListener('click', showPictureInPopup);
+  cardImage.addEventListener('click', showPictureinPopup);
 
-  pasteCardInDocument(card);   // возвращаем карту с элементами слушателями и параметрами
+  return card;   // возвращаем карту с элементами слушателями и параметрами
 }
-// добавляем каждую карту на страницу. данные берутся из массива initial.cards.
-function loadingCards() {
-  initialCards.forEach(showTemplateCardOnPage)
-};
+
 
 // отрисовать карточки из шаблона
-function showTemplateCardOnPage(element) {
-  renderCard(element.name, element.link)
-};
+
 //добавить карты на страницу.
-function pasteCardInDocument(element) {
+function pasteCardIntoDocument(element) {
   elements.prepend(element)
 };
 
-function showPictureInPopup(evt) {
+function showPictureinPopup(evt) {
   openPopup(popupImage)
-  const elementPhoto = evt.target.closest('.element__photo')
-  popupImagePhoto.src = elementPhoto.src; // берем ссылку из объекта
-  popupImageTitle.textContent = elementPhoto.alt; //берем текст c ближайшего эла
-  popupImagePhoto.alt = elementPhoto.alt; // установим альт
+  popupImageTitle.textContent = evt.target.closest('.element').textContent; //берем текст c ближайшего эла
+  popupImagePhotoUrl.src = evt.target.src; // берем ссылку из объекта
+  popupImagePhotoUrl.setAttribute('alt', name); // установим альт
 }
 
-loadingCards()
+const addCard = function (name, link) {
+  let cardOnShow = renderCard(name, link); // единственное изменение в последней строке: теперь вместо вызова pasteCardIntoDocument возвращаем DOM-элемент card
+  pasteCardIntoDocument(cardOnShow); // этот элемент передаем дальше
+  };
+
+  // добавляем каждую карту на страницу. данные берутся из массива initial.cards.
+function showCardOnPage() {
+  initialCards.forEach(element => addCard(element.name, element.link))
+};
+
+showCardOnPage()
 
 //Слушатели
 
-popupEditProfile.addEventListener('submit', profileFormSubmitHandler);
-checkPlaceContainer.addEventListener('submit', placeFormSubmitHandler);
-editProfileButton.addEventListener('click', openProfileEditPopup);
+popupEditProfile.addEventListener('submit', formSubmitHandler);
+checkPlaceContainer.addEventListener('submit', renderUserCard);
+editProfileButton.addEventListener('click', getProfileName);
 popupParent.addEventListener('click', closePopup)
 addPlaceButton.addEventListener('click', () => openPopup(popupPlace));
 
