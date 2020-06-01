@@ -51,29 +51,34 @@ const elementTemplate = document.querySelector('#template').content; // ищем
 
 //открытие/закрытие попапов
 function openPopup(element) {
-  element.classList.toggle('popup_active');
+  element.classList.add('popup_active');
 }
 
 // закрытие попапов кнопкой
-function closePopup(evt) {
+function closePopup(element) {
+  element.classList.remove('popup_active');
+}
+
+
+function handlePopupClose(evt) {
   if (evt.target.classList.contains('popup__close')) {
-    evt.target.closest('.popup').classList.toggle('popup_active');
+    closePopup(evt.target.closest('.popup'));
   }
 }
 
 //получить текущее имя пользователя в инпуты
-function getProfileName() {
+function openProfileEditPopup() {
   nameInput.value = currentName.textContent; // а заодно и подставим в поле значение с страницы
   jobInput.value = currentJob.textContent;
   openPopup(popupEditProfile);
 }
 
 //f получения данных в попап с страницы
-function formSubmitHandler(evt) {
+function profileFormSubmitHandler(evt) {
   evt.preventDefault();
   currentName.textContent = nameInput.value;
   currentJob.textContent = jobInput.value;
-  openPopup(popupEditProfile);
+  closePopup(popupEditProfile);
 }
 
 // функция постановки лаек
@@ -89,11 +94,10 @@ function removeCard(evt) {
 //отображаем карточку пользователя
 function renderUserCard(event) {
   event.preventDefault();
-
   addCard(popupPlaceName.value, popupPlaceUrl.value);
   popupPlaceName.value = ''; // обнуляем значение инпута
   popupPlaceUrl.value =''; // обнуляем значение инпута
-  openPopup(popupPlace)
+  closePopup(popupPlace)
 };
 
 function renderCard(name, link) {
@@ -108,7 +112,7 @@ function renderCard(name, link) {
   cardImage.setAttribute('alt', name); // устанавливаем аттрибут альт для картинки с названием нейма
   likeButton.addEventListener('click', toggleLike);
   removeButton.addEventListener('click', removeCard);
-  cardImage.addEventListener('click', showPictureinPopup);
+  cardImage.addEventListener('click', showPictureInPopup);
 
   return card;   // возвращаем карту с элементами слушателями и параметрами
 }
@@ -118,18 +122,18 @@ function renderCard(name, link) {
 
 //добавить карты на страницу.
 function pasteCardIntoDocument(element) {
-  elements.prepend(element)
+  elements.append(element)
 };
 
-function showPictureinPopup(evt) {
+function showPictureInPopup(evt) {
   openPopup(popupImage)
-  popupImageTitle.textContent = evt.target.closest('.element').textContent; //берем текст c ближайшего эла
+  popupImageTitle.innerText = evt.target.closest('.element').innerText; //берем текст c ближайшего эла
   popupImagePhotoUrl.src = evt.target.src; // берем ссылку из объекта
-  popupImagePhotoUrl.setAttribute('alt', name); // установим альт
+  popupImagePhotoUrl.alt = evt.target.alt // установим альт
 }
 
 const addCard = function (name, link) {
-  let cardOnShow = renderCard(name, link); // единственное изменение в последней строке: теперь вместо вызова pasteCardIntoDocument возвращаем DOM-элемент card
+  const cardOnShow = renderCard(name, link); // единственное изменение в последней строке: теперь вместо вызова pasteCardIntoDocument возвращаем DOM-элемент card
   pasteCardIntoDocument(cardOnShow); // этот элемент передаем дальше
   };
 
@@ -142,9 +146,9 @@ showCardOnPage()
 
 //Слушатели
 
-popupEditProfile.addEventListener('submit', formSubmitHandler);
+popupEditProfile.addEventListener('submit', profileFormSubmitHandler);
 checkPlaceContainer.addEventListener('submit', renderUserCard);
-editProfileButton.addEventListener('click', getProfileName);
-popupParent.addEventListener('click', closePopup)
+editProfileButton.addEventListener('click', openProfileEditPopup);
+popupParent.addEventListener('click', handlePopupClose)
 addPlaceButton.addEventListener('click', () => openPopup(popupPlace));
 
