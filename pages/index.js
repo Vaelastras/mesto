@@ -52,6 +52,7 @@ const elementTemplate = document.querySelector('#template').content; // ищем
 //открытие/закрытие попапов
 function openPopup(element) {
   element.classList.add('popup_active');
+  document.addEventListener('keydown', closePopupByEscButton);
 }
 
 // закрытие попапов кнопкой
@@ -117,9 +118,6 @@ function renderCard(name, link) {
   return card;   // возвращаем карту с элементами слушателями и параметрами
 }
 
-
-// отрисовать карточки из шаблона
-
 //добавить карты на страницу.
 function pasteCardIntoDocument(element) {
   elements.append(element)
@@ -144,6 +142,19 @@ function showCardOnPage() {
 
 showCardOnPage()
 
+// закрытие попапа кнопкой
+
+function closePopupByEscButton(evt) {
+  //проверяем, если нажата кнопка Эскейп
+  if (evt.key ==='Escape') {
+    //выбираем класс и удаляем его
+    document.querySelector('.popup_active').classList.remove('popup_active');
+    //удаляем слушатель на ловлю клика по эскейпу
+    document.removeEventListener('keydown', closePopupByEscButton);
+  }
+}
+
+
 //Слушатели
 
 popupEditProfile.addEventListener('submit', profileFormSubmitHandler);
@@ -151,4 +162,3 @@ checkPlaceContainer.addEventListener('submit', renderUserCard);
 editProfileButton.addEventListener('click', openProfileEditPopup);
 popupParent.addEventListener('click', handlePopupClose)
 addPlaceButton.addEventListener('click', () => openPopup(popupPlace));
-
