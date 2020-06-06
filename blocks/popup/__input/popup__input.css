@@ -2,6 +2,7 @@
 @import url(./_type/popup__input_type_job.css);
 @import url(./_type/popup__input_type_title.css);
 @import url(./_type/popup__input_type_url.css);
+@import url(./_type/popup__input_type_error.css);
 
 
 .popup__input {
