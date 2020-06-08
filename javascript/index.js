@@ -15,36 +15,6 @@ const popupPlaceUrl = document.querySelector('.popup__input_type_url'); // ищ�
 const elements = document.querySelector('.elements'); //определяем место где будут создаваться карточки
 const popupImagePhotoUrl = document.querySelector('.popup__image') //ищем картинку места (попап имг)
 const popupImageTitle = document.querySelector('.popup__image-title')// ищем название места (попап имг)
-
-/* определяем массив изначальных элементов. каждый элемент - объект с свойствами
-Свойства name и link - пригодятся как параметры функции при создании дефолтных карт
-*/
-const initialCards = [
-  {
-      name: 'Cочи',
-      link: './images/photo-grid-sochi.jpg'
-  },
-  {
-      name: 'Эльбрус',
-      link: './images/photo-grid-elbrus.jpg'
-  },
-  {
-      name: 'Камчатка',
-      link: './images/photo-grid-kamchatka-2.jpg'
-  },
-  {
-      name: 'Карелия',
-      link: './images/place-karelia.jpg'
-  },
-  {
-      name: 'Кольский',
-      link: './images/place-kolsky.jpg'
-  },
-  {
-      name: 'Куршская коса',
-      link: './images/place-kosa.jpg'
-  }
-]
 const elementTemplate = document.querySelector('#template').content; // ищем шаблон темплейта для клонирования карточек
 
 // Функции
@@ -162,6 +132,8 @@ function escapeHandler(evt) {
 }
 
 document.addEventListener('click', (evt) => evt.target.classList.remove('popup_active'));
+
+enableValidation(myObj)
 
 //Слушатели
 

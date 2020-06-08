@@ -13,17 +13,16 @@ const myObj = {
 
 
 const showInputError = (formElement, inputElement, errorMessage) => {
-  console.log(inputElement)
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.add('popup__input_type_error');
+  inputElement.classList.add(myObj.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('popup__error_type_active');
+  errorElement.classList.add(myObj.errorClass);
 };
 
 const hideInputError = (formElement, inputElement) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove('popup__input_type_error');
-  errorElement.classList.remove('popup__error_type_active');
+  inputElement.classList.remove(myObj.inputErrorClass);
+  errorElement.classList.remove(myObj.errorClass);
   errorElement.textContent = '';
 };
 
@@ -37,7 +36,7 @@ const checkInputValidity = (formElement, inputElement) => {
 
 const isValid = function(formElement, inputElement) {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement ,inputElement.validationMessage);
+    showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
     hideInputError(formElement, inputElement);
   }
@@ -45,38 +44,28 @@ const isValid = function(formElement, inputElement) {
 
 
 const hasInvalidInput = (inputList) => {
-  // проходим по этому массиву методом some
-  return inputList.some((inputElement) => {
-        // Если поле не валидно, колбэк вернёт true
-    // Обход массива прекратится и вся фунцкция
-    // hasInvalidInput вернёт true
-
+  return inputList.some((inputElement) => { // проходим по этому массиву методом some
+  /*Если поле не валидно, колбэк вернёт true
+   Обход массива прекратится и вся фунцкция
+   hasInvalidInput вернёт true */
     return !inputElement.validity.valid;
   })
 };
 
 
 const toggleButtonState = (inputList, buttonElement) => {
-  // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
-    // сделай кнопку неактивной
-    buttonElement.classList.add('popup__submit_disabled');
+    buttonElement.classList.add(myObj.inactiveButtonClass);
   } else {
-        // иначе сделай кнопку активной
-    buttonElement.classList.remove('popup__submit_disabled');
+    buttonElement.classList.remove(myObj.inactiveButtonClass);
   }
 };
 
-///formElement - это форма!!
-//
-const setEventListeners = (formElement) => {
-  // Найдём все поля формы и сделаем из них массив
-const inputList = Array.from(formElement.querySelectorAll(`.popup__input`));
-  // Найдём в текущей форме кнопку отправки
-const buttonElement = formElement.querySelector('.popup__submit');
-  // Вызовем toggleButtonState, чтобы не ждать ввода данных в поля
-  toggleButtonState(inputList, buttonElement);
 
+const setEventListeners = (formElement) => {
+const inputList = Array.from(formElement.querySelectorAll(myObj.inputSelector));  // Найдём все поля формы и сделаем из них массив
+const buttonElement = formElement.querySelector(myObj.submitButtonSelector); // Найдём в текущей форме кнопку отправки
+toggleButtonState(inputList, buttonElement);  // Вызовем toggleButtonState, чтобы не ждать ввода данных в поля
 inputList.forEach((inputElement) => {
   inputElement.addEventListener('input', () => {
     isValid(formElement, inputElement);
@@ -87,7 +76,7 @@ inputList.forEach((inputElement) => {
 
 
 function enableValidation() {
-  const formList = Array.from(document.querySelectorAll('.popup__container'));
+  const formList = Array.from(document.querySelectorAll(myObj.formSelector));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
@@ -95,5 +84,3 @@ function enableValidation() {
     setEventListeners(formElement);
   });
 }
-
-enableValidation()
