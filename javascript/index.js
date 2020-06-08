@@ -52,19 +52,17 @@ const elementTemplate = document.querySelector('#template').content; // ищем
 //открытие/закрытие попапов
 function openPopup(element) {
   element.classList.add('popup_active');
-const popupEditProfile = document.querySelector('.popup_type_edit-profile');// ищем обычный попап (попап1)
+
   hideInputError(popupEditProfile, nameInput)
   hideInputError(popupEditProfile, jobInput)
   hideInputError(checkPlaceContainer, popupPlaceName)
   hideInputError(checkPlaceContainer, popupPlaceUrl)
   setEventListeners(popupEditProfile)
   setEventListeners(checkPlaceContainer)
-
-
-  document.addEventListener('keydown', closePopupByEscButton);
+  document.addEventListener('keydown', escapeHandler);
 }
+// закрытие попапов кнопкой закрыть
 
-// закрытие попапов кнопкой
 function closePopup(element) {
   element.classList.remove('popup_active');
 }
@@ -102,7 +100,7 @@ function removeCard(evt) {
 }
 
 //отображаем карточку пользователя
-function renderUserCard(event) {
+function userCardHandler(event) {
   event.preventDefault();
   addCard(popupPlaceName.value, popupPlaceUrl.value);
   popupPlaceName.value = ''; // обнуляем значение инпута
@@ -133,10 +131,10 @@ function pasteCardIntoDocument(element) {
 };
 
 function showPictureInPopup(evt) {
-  openPopup(popupImage)
   popupImageTitle.innerText = evt.target.closest('.element').innerText; //берем текст c ближайшего эла
   popupImagePhotoUrl.src = evt.target.src; // берем ссылку из объекта
   popupImagePhotoUrl.alt = evt.target.alt // установим альт
+  openPopup(popupImage)
 }
 
 const addCard = function (name, link) {
@@ -145,29 +143,30 @@ const addCard = function (name, link) {
   };
 
   // добавляем каждую карту на страницу. данные берутся из массива initial.cards.
-function showCardOnPage() {
+function showInitialCardsOnPage() {
   initialCards.forEach(element => addCard(element.name, element.link))
 };
 
-showCardOnPage()
+showInitialCardsOnPage()
 
 // закрытие попапа кнопкой
 
-function closePopupByEscButton(evt) {
+function escapeHandler(evt) {
   //проверяем, если нажата кнопка Эскейп
   if (evt.key ==='Escape') {
     //выбираем класс и удаляем его
     document.querySelector('.popup_active').classList.remove('popup_active');
     //удаляем слушатель на ловлю клика по эскейпу
-    document.removeEventListener('keydown', closePopupByEscButton);
+    document.removeEventListener('keydown', escapeHandler);
   }
 }
 
+document.addEventListener('click', (evt) => evt.target.classList.remove('popup_active'));
 
 //Слушатели
 
 popupEditProfile.addEventListener('submit', profileFormSubmitHandler);
-checkPlaceContainer.addEventListener('submit', renderUserCard);
+checkPlaceContainer.addEventListener('submit', userCardHandler);
 editProfileButton.addEventListener('click', openProfileEditPopup);
 popupParent.addEventListener('click', handlePopupClose)
 addPlaceButton.addEventListener('click', () => openPopup(popupPlace));
