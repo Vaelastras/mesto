@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Четвёртая работа по Ya.Praktikum">
+<meta name="description" content="Шестая работа по Ya.Praktikum">
 <meta name="author" content="Алексей Белов">
 <title>Проект Место</title>
 <link rel="stylesheet" href="pages/index.css">
+<link rel="shortcut icon" href="https://yastatic.net/q/praktikum/v0.132.8-1591111175/static/apple-touch-icon.png">
 </head>
 <body class="page">
   <div class="root">
@@ -14,6 +15,7 @@
       <img class="header__logo" src="./images/logo.svg" alt="Логотип проекта 'Mesto'">
     </header>
     <main class="content">
+
       <section class="profile">
         <div class="profile__avatar"></div>
         <div class="profile__info">
@@ -25,8 +27,9 @@
         </div>
         <button class="profile__add-button" type="button" aria-label="Добавить элемент"></button>
       </section>
+
       <section class="elements" aria-label="элементы"></section>
-      </section>
+
     </main>
     <footer class="footer">
       <p class="footer__copyrigth">&copy; 2020 Mesto Russia</p>
@@ -34,7 +37,7 @@
     <!-- start template-->
       <template id="template">
         <div class="element">
-          <img class="element__photo" src="." alt=".">
+          <img class="element__photo" src="" alt="">
           <button class="element__trash" type="button" aria-label="Удалить"></button>
           <div class="element__row">
               <h2 class="element__title"></h2>
@@ -43,16 +46,33 @@
         </div>
       </template>
     <!-- end template -->
+
     <section class="popups">
       <div class="popup popup_type_edit-profile">
-        <!-- novalidate -->
         <form class="popup__container" name="popup-form" method="GET" action="#" novalidate>
           <button class="popup__close" type="reset" aria-label="закрыть"></button>
           <h3 class="popup__title">Редактировать профиль</h3>
           <fieldset class="popup__inputs">
-            <input class="popup__input popup__input_type_name" type="text" name="name-input" id="name-input" placeholder="Введите имя" minlength="2" maxlength="40" pattern="[a-zA-Zа-яёА-ЯЁ\s\-]*" required>
+            <input
+              class = "popup__input popup__input_type_name"
+              type = "text"
+              name = "name-input"
+              id = "name-input"
+              placeholder = "Введите имя"
+              minlength = "2"
+              maxlength = "40"
+              pattern = "[a-zA-Zа-яёА-ЯЁ-\s]*"
+              required>
             <span class="popup__error" id="name-input-error"></span>
-            <input class="popup__input popup__input_type_job" type="text" name="job-input" id="job-input" placeholder="Введите профессию" minlength="20" maxlength="200" required>
+            <input
+              class = "popup__input popup__input_type_job"
+              type = "text"
+              name = "job-input"
+              id = "job-input"
+              placeholder = "Введите профессию"
+              minlength = "20"
+              maxlength = "200"
+              required>
             <span class="popup__error" id="job-input-error"></span>
           </fieldset>
           <button class="popup__submit" type="submit">Сохранить</button>
@@ -60,18 +80,31 @@
       </div>
 
       <div class="popup popup_type_new-place">
-          <!-- novalidate -->
-          <form class="popup__container popup__container_type_card" name="popup-form" method="GET" action="#" novalidate>
-              <button class="popup__close" type="reset" aria-label="Закрыть"></button>
-              <p class="popup__title">Новое место</p>
-              <fieldset class="popup__inputs">
-                <input class="popup__input popup__input_type_title" type="text" name="title-input" id="title-input" placeholder="Название" minlength="1" maxlength="30" required>
-                <span class="popup__error" id="title-input-error"></span>
-                <input class="popup__input popup__input_type_url" type="url" name="url-input" id="url-input" placeholder="Ссылка на картинку" required>
-                <span class="popup__error" id="url-input-error"></span>
-              </fieldset>
-              <button class="popup__submit" type="submit">Создать</button>
-          </form>
+        <form class="popup__container popup__container_type_card" name="popup-form" method="GET" action="#" novalidate>
+          <button class="popup__close" type="reset" aria-label="Закрыть"></button>
+          <p class="popup__title">Новое место</p>
+          <fieldset class="popup__inputs">
+            <input
+              class="popup__input popup__input_type_title"
+              type = "text"
+              name = "title-input"
+              id = "title-input"
+              placeholder = "Название"
+              minlength = "1"
+              maxlength = "30"
+              required>
+            <span class="popup__error" id="title-input-error"></span>
+            <input
+              class="popup__input popup__input_type_url"
+              type = "url"
+              name = "url-input"
+              id = "url-input"
+              placeholder = "Ссылка на картинку"
+              required>
+            <span class="popup__error" id="url-input-error"></span>
+          </fieldset>
+          <button class="popup__submit" type="submit">Создать</button>
+        </form>
       </div>
       <div class="popup popup_type_image">
         <div class="popup__image-container">
@@ -82,7 +115,7 @@
       </div>
     </section>
   </div>
-  <script src="./pages/validate.js"></script>
-  <script src="./pages/index.js"></script>
+  <script src="./javascript/validate.js"></script>
+  <script src="./javascript/index.js"></script>
 </body>
 </html>
