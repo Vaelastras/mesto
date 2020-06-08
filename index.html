@@ -46,26 +46,30 @@
     <section class="popups">
       <div class="popup popup_type_edit-profile">
         <!-- novalidate -->
-        <form class="popup__container" name="popup-form" method="GET" action="#">
+        <form class="popup__container" name="popup-form" method="GET" action="#" novalidate>
           <button class="popup__close" type="reset" aria-label="закрыть"></button>
           <h3 class="popup__title">Редактировать профиль</h3>
-          <input class="popup__input popup__input_type_name" type="text" name="name" placeholder="Введите имя" minlength="2" maxlength="40" pattern="[a-zA-Zа-яёА-ЯЁ\s\-]*" required>
-          <span class="popup__error" id="error-name"></span>
-          <input class="popup__input popup__input_type_job" type="text" name="job" placeholder="Введите профессию" minlength="20" maxlength="200" required>
-          <span class="popup__error" id="error-job"></span>
+          <fieldset class="popup__inputs">
+            <input class="popup__input popup__input_type_name" type="text" name="name-input" id="name-input" placeholder="Введите имя" minlength="2" maxlength="40" pattern="[a-zA-Zа-яёА-ЯЁ\s\-]*" required>
+            <span class="popup__error" id="name-input-error"></span>
+            <input class="popup__input popup__input_type_job" type="text" name="job-input" id="job-input" placeholder="Введите профессию" minlength="20" maxlength="200" required>
+            <span class="popup__error" id="job-input-error"></span>
+          </fieldset>
           <button class="popup__submit" type="submit">Сохранить</button>
         </form>
       </div>
 
       <div class="popup popup_type_new-place">
           <!-- novalidate -->
-          <form class="popup__container popup__container_type_card" name="popup-form" method="GET" action="#">
+          <form class="popup__container popup__container_type_card" name="popup-form" method="GET" action="#" novalidate>
               <button class="popup__close" type="reset" aria-label="Закрыть"></button>
               <p class="popup__title">Новое место</p>
-              <input class="popup__input popup__input_type_title" type="text" name="name" placeholder="Название" minlength="1" maxlength="30" required>
-              <span class="popup__error" id="error-title"></span>
-              <input class="popup__input popup__input_type_url" type="text" name="url" placeholder="Ссылка на картинку" required>
-              <span class="popup__error" id="error-link"></span>
+              <fieldset class="popup__inputs">
+                <input class="popup__input popup__input_type_title" type="text" name="title-input" id="title-input" placeholder="Название" minlength="1" maxlength="30" required>
+                <span class="popup__error" id="title-input-error"></span>
+                <input class="popup__input popup__input_type_url" type="url" name="url-input" id="url-input" placeholder="Ссылка на картинку" required>
+                <span class="popup__error" id="url-input-error"></span>
+              </fieldset>
               <button class="popup__submit" type="submit">Создать</button>
           </form>
       </div>

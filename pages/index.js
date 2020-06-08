@@ -52,6 +52,15 @@ const elementTemplate = document.querySelector('#template').content; // ищем
 //открытие/закрытие попапов
 function openPopup(element) {
   element.classList.add('popup_active');
+const popupEditProfile = document.querySelector('.popup_type_edit-profile');// ищем обычный попап (попап1)
+  hideInputError(popupEditProfile, nameInput)
+  hideInputError(popupEditProfile, jobInput)
+  hideInputError(checkPlaceContainer, popupPlaceName)
+  hideInputError(checkPlaceContainer, popupPlaceUrl)
+  setEventListeners(popupEditProfile)
+  setEventListeners(checkPlaceContainer)
+
+
   document.addEventListener('keydown', closePopupByEscButton);
 }
 

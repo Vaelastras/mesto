@@ -6,13 +6,16 @@
 @import url(./__close/popup__close.css);
 @import url(./__title/popup__title.css);
 @import url(./__input/popup__input.css);
+@import url(./__inputs/popup__inputs.css);
 @import url(./__submit/popup__submit.css);
 
 @import url(./__image-container/popup__image-container.css);
 @import url(./__image/popup__image.css);
 @import url(./__image-title/popup__image-title.css);
 @import url(./__error/popup__error.css);
+@import url(./__error/_type/popup__error_type_active.css);
 @import url(./__submit/_disabled/popup__submit_disabled.css);
+@import url(./__input/_type/popup__input_type_error.css);
 
 
 .popup {
