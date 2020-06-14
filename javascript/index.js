@@ -17,26 +17,22 @@ const popupImagePhotoUrl = document.querySelector('.popup__image') //ищем к
 const popupImageTitle = document.querySelector('.popup__image-title')// ищем название места (попап имг)
 const elementTemplate = document.querySelector('#template').content; // ищем шаблон темплейта для клонирования карточек
 
-// Функции
+// Обработчики закрытия попапа кнопкой
 
-//открытие/закрытие попапов
-function openPopup(element) {
-  element.classList.add('popup_active');
+// user-type handlers
+const escapeHandler = (evt) => {
+  const openedPopup = document.querySelector('.popup_active')
+  if (evt.key ==='Escape') {
+    closePopup(openedPopup)
+  }
+};
 
-  hideInputError(popupEditProfile, nameInput)
-  hideInputError(popupEditProfile, jobInput)
-  hideInputError(checkPlaceContainer, popupPlaceName)
-  hideInputError(checkPlaceContainer, popupPlaceUrl)
-  setEventListeners(popupEditProfile)
-  setEventListeners(checkPlaceContainer)
-  document.addEventListener('keydown', escapeHandler);
-}
-// закрытие попапов кнопкой закрыть
-
-function closePopup(element) {
-  element.classList.remove('popup_active');
-}
-
+const overlayHandlerClose = (evt) => {
+  if (evt.target.classList.contains('popup')) {
+    const openedPopup = document.querySelector('.popup_active');
+    closePopup(openedPopup);
+  }
+};
 
 function handlePopupClose(evt) {
   if (evt.target.classList.contains('popup__close')) {
@@ -44,41 +40,66 @@ function handlePopupClose(evt) {
   }
 }
 
-//получить текущее имя пользователя в инпуты
-function openProfileEditPopup() {
-  nameInput.value = currentName.textContent; // а заодно и подставим в поле значение с страницы
-  jobInput.value = currentJob.textContent;
-  openPopup(popupEditProfile);
+function setListenersOnPopup (element) {
+  document.addEventListener('keydown', escapeHandler); // клик по эккейпу
+  element.addEventListener('click', overlayHandlerClose) // клик в оверлей
+  popupParent.addEventListener('click', handlePopupClose)//клик в крест
 }
 
-//f получения данных в попап с страницы
-function profileFormSubmitHandler(evt) {
+function removeListenersOnPopup(element) {
+  document.removeEventListener('keydown', escapeHandler); // клик по эккейпу
+  element.removeEventListener('click', overlayHandlerClose) // клик в оверлей
+  popupParent.addEventListener('click', handlePopupClose) //клик в крест
+}
+
+// function
+
+const openPopup = (element) => {
+  element.classList.add('popup_active');
+  if (element !==  popupImage) {
+    const inputsList = Array.from(element.querySelectorAll(validationConfig.inputSelector));
+    const submitButton = element.querySelector(validationConfig.submitButtonSelector);
+    toggleButtonState(inputsList, submitButton);
+    inputsList.forEach((inputElement) => {
+      hideInputError(element, inputElement)
+    });
+  }
+  setListenersOnPopup(element);
+}
+
+const closePopup = (element) => {
+  element.classList.remove('popup_active');
+  removeListenersOnPopup(element);
+}
+
+//получить текущее имя пользователя в инпуты
+const openProfileEditPopup = () => {
+  nameInput.value = currentName.textContent;
+  jobInput.value = currentJob.textContent;
+  openPopup(popupEditProfile);
+};
+
+const profileFormSubmitHandler = (evt) => {
   evt.preventDefault();
   currentName.textContent = nameInput.value;
   currentJob.textContent = jobInput.value;
   closePopup(popupEditProfile);
-}
-
-// функция постановки лаек
-function toggleLike(evt) {
-  evt.target.classList.toggle('element__like_active');
-}
-
-//функция удаления карточек
-function removeCard(evt) {
-  evt.target.closest('.element').remove()
-}
-
-//отображаем карточку пользователя
-function userCardHandler(event) {
-  event.preventDefault();
-  addCard(popupPlaceName.value, popupPlaceUrl.value);
-  popupPlaceName.value = ''; // обнуляем значение инпута
-  popupPlaceUrl.value =''; // обнуляем значение инпута
-  closePopup(popupPlace)
 };
 
-function renderCard(name, link) {
+const toggleLike = (evt) => evt.target.classList.toggle('element__like_active');
+
+const removeCard = (evt) => evt.target.closest('.element').remove()
+
+const showPictureInPopup = (evt) => {
+  popupImageTitle.innerText = evt.target.closest('.element').innerText; //берем текст c ближайшего эла
+  popupImagePhotoUrl.src = evt.target.src; // берем ссылку из объекта
+  popupImagePhotoUrl.alt = evt.target.alt; // установим альт
+  openPopup(popupImage);
+}
+
+/* Друзья! В очередной раз переименовываю функцию. Каждый ревьювер требует своё название  :( */
+
+function createCard(name, link) {
   const card = elementTemplate.cloneNode(true); // клонируем шаблон
   const cardImage = card.querySelector('.element__photo'); // находим изображение
   const cardTitle = card.querySelector('.element__title'); // находим титл
@@ -96,49 +117,34 @@ function renderCard(name, link) {
 }
 
 //добавить карты на страницу.
-function pasteCardIntoDocument(element) {
-  elements.append(element)
+const pasteCardIntoDocument = (element) => elements.prepend(element);
+
+const addCard = (name, link) => {
+  const cardOnShow = createCard(name, link);
+  pasteCardIntoDocument(cardOnShow);
 };
 
-function showPictureInPopup(evt) {
-  popupImageTitle.innerText = evt.target.closest('.element').innerText; //берем текст c ближайшего эла
-  popupImagePhotoUrl.src = evt.target.src; // берем ссылку из объекта
-  popupImagePhotoUrl.alt = evt.target.alt // установим альт
-  openPopup(popupImage)
-}
-
-const addCard = function (name, link) {
-  const cardOnShow = renderCard(name, link); // единственное изменение в последней строке: теперь вместо вызова pasteCardIntoDocument возвращаем DOM-элемент card
-  pasteCardIntoDocument(cardOnShow); // этот элемент передаем дальше
-  };
-
-  // добавляем каждую карту на страницу. данные берутся из массива initial.cards.
-function showInitialCardsOnPage() {
-  initialCards.forEach(element => addCard(element.name, element.link))
+const openPopupPlaceAdd = () => {
+  checkPlaceContainer.reset();
+  openPopup(popupPlace);
 };
+
+//отображаем карточку пользователя
+const userCardHandler = (event) => {
+  event.preventDefault();
+  addCard(popupPlaceName.value, popupPlaceUrl.value);
+  closePopup(popupPlace)
+};
+
+// добавляем каждую карту на страницу. данные берутся из массива initial.cards.
+const showInitialCardsOnPage = () =>   initialCards.forEach(element => addCard(element.name, element.link));
 
 showInitialCardsOnPage()
+enableValidation()
 
-// закрытие попапа кнопкой
-
-function escapeHandler(evt) {
-  //проверяем, если нажата кнопка Эскейп
-  if (evt.key ==='Escape') {
-    //выбираем класс и удаляем его
-    document.querySelector('.popup_active').classList.remove('popup_active');
-    //удаляем слушатель на ловлю клика по эскейпу
-    document.removeEventListener('keydown', escapeHandler);
-  }
-}
-
-document.addEventListener('click', (evt) => evt.target.classList.remove('popup_active'));
-
-enableValidation(myObj)
-
-//Слушатели
-
+//eventListeners
 popupEditProfile.addEventListener('submit', profileFormSubmitHandler);
 checkPlaceContainer.addEventListener('submit', userCardHandler);
 editProfileButton.addEventListener('click', openProfileEditPopup);
-popupParent.addEventListener('click', handlePopupClose)
-addPlaceButton.addEventListener('click', () => openPopup(popupPlace));
+addPlaceButton.addEventListener('click', openPopupPlaceAdd);
+
