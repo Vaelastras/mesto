@@ -41,20 +41,18 @@ function handlePopupClose(evt) {
 
 function setListenersOnPopup (element) {
   document.addEventListener('keydown', escapeHandler); // клик по эккейпу
-  element.addEventListener('click', overlayHandlerClose) // клик в оверлей
+  element.addEventListener('mousedown', overlayHandlerClose) // клик в оверлей;
   popupParent.addEventListener('click', handlePopupClose)//клик в крест
 }
 
 function removeListenersOnPopup(element) {
   document.removeEventListener('keydown', escapeHandler); // клик по эккейпу
-  element.removeEventListener('click', overlayHandlerClose) // клик в оверлей
+  element.removeEventListener('mousedown', overlayHandlerClose) // клик в оверлей
   popupParent.addEventListener('click', handlePopupClose) //клик в крест
 }
 
 // function
-
-const openPopup = (element) => {
-  element.classList.add('popup_active');
+const clearPopupValidationErrors = (element) => {
   if (element !==  popupImage) {
     const inputsList = Array.from(element.querySelectorAll(validationConfig.inputSelector));
     const submitButton = element.querySelector(validationConfig.submitButtonSelector);
@@ -63,6 +61,10 @@ const openPopup = (element) => {
       hideInputError(element, inputElement)
     });
   }
+}
+
+const openPopup = (element) => {
+  element.classList.add('popup_active');
   setListenersOnPopup(element);
 }
 
@@ -75,6 +77,7 @@ const closePopup = (element) => {
 const openProfileEditPopup = () => {
   nameInput.value = currentName.textContent;
   jobInput.value = currentJob.textContent;
+  clearPopupValidationErrors(popupEditProfile);
   openPopup(popupEditProfile);
 };
 
@@ -125,6 +128,7 @@ const addCard = (name, link) => {
 
 const openPopupPlaceAdd = () => {
   checkPlaceContainer.reset();
+  clearPopupValidationErrors(popupPlace);
   openPopup(popupPlace);
 };
 
