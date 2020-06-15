@@ -18,7 +18,6 @@ const popupImageTitle = document.querySelector('.popup__image-title')// ищем
 const elementTemplate = document.querySelector('#template').content; // ищем шаблон темплейта для клонирования карточек
 
 // Обработчики закрытия попапа кнопкой
-
 // user-type handlers
 const escapeHandler = (evt) => {
   const openedPopup = document.querySelector('.popup_active')
