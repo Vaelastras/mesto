@@ -17,6 +17,15 @@ const popupImagePhotoUrl = document.querySelector('.popup__image') //ищем к
 const popupImageTitle = document.querySelector('.popup__image-title')// ищем название места (попап имг)
 const elementTemplate = document.querySelector('#template').content; // ищем шаблон темплейта для клонирования карточек
 
+const validationConfig = {
+  formSelector: '.popup__container',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_type_active'
+};
+
 // Обработчики закрытия попапа кнопкой
 // user-type handlers
 const escapeHandler = (evt) => {
@@ -56,9 +65,10 @@ const clearPopupValidationErrors = (element) => {
   if (element !==  popupImage) {
     const inputsList = Array.from(element.querySelectorAll(validationConfig.inputSelector));
     const submitButton = element.querySelector(validationConfig.submitButtonSelector);
-    toggleButtonState(inputsList, submitButton);
+    
+    toggleButtonState(inputsList, submitButton, validationConfig);
     inputsList.forEach((inputElement) => {
-      hideInputError(element, inputElement)
+      hideInputError(element, inputElement, validationConfig)
     });
   }
 }
