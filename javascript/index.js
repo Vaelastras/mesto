@@ -20,8 +20,8 @@ const elementTemplate = document.querySelector('#template').content; // ищем
 // Обработчики закрытия попапа кнопкой
 // user-type handlers
 const escapeHandler = (evt) => {
-  const openedPopup = document.querySelector('.popup_active')
   if (evt.key ==='Escape') {
+    const openedPopup = document.querySelector('.popup_active')
     closePopup(openedPopup)
   }
 };
@@ -143,7 +143,7 @@ const userCardHandler = (event) => {
 const showInitialCardsOnPage = () =>   initialCards.forEach(element => addCard(element.name, element.link));
 
 showInitialCardsOnPage()
-enableValidation()
+enableValidation(validationConfig)
 
 //eventListeners
 popupEditProfile.addEventListener('submit', profileFormSubmitHandler);
