@@ -1,4 +1,7 @@
 //переменные
+import {initialCards} from './initialCards.js';
+
+
 const popupParent = document.querySelector('.popups'); // общая секция для всех попапов
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');// ищем обычный попап (попап1)
 const popupPlace = document.querySelector('.popup_type_new-place'); // ищем попап новых мест (попап 2)
