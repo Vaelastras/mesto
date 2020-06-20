@@ -1,6 +1,6 @@
 //переменные
 import {initialCards} from './initialCards.js';
-
+import {FormValidator} from './FormValidator.js';
 
 const popupParent = document.querySelector('.popups'); // общая секция для всех попапов
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');// ищем обычный попап (попап1)
@@ -8,6 +8,7 @@ const popupPlace = document.querySelector('.popup_type_new-place'); // ищем 
 const popupImage = document.querySelector('.popup_type_image'); //ищем попап открытия изображений (попап 3)
 const editProfileButton = document.querySelector('.profile__edit-button'); // ищем кнопку вызова попапа редактирования профиля
 const addPlaceButton = document.querySelector('.profile__add-button'); // ищем кнопку вызова попапа добавления нового места
+const checkProfileContainer = document.querySelector('.popup__container_type_profile'); // определяем форму редактирования профиля
 const checkPlaceContainer = document.querySelector('.popup__container_type_card'); // определяем форму, откуда будем тянуть инпуты названия места и ссылку (попап2)
 const currentName = document.querySelector('.profile__title'); // ищем текущее имя юзера на странице
 const currentJob = document.querySelector('.profile__job-description'); //ищем текущуюю профессию юзера на странице
@@ -20,7 +21,9 @@ const popupImagePhotoUrl = document.querySelector('.popup__image') //ищем к
 const popupImageTitle = document.querySelector('.popup__image-title')// ищем название места (попап имг)
 const elementTemplate = document.querySelector('#template').content; // ищем шаблон темплейта для клонирования карточек
 
-const validationConfig = {
+
+
+export const validationConfig = {
   formSelector: '.popup__container',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__submit',
@@ -68,12 +71,26 @@ const clearPopupValidationErrors = (element) => {
   if (element !==  popupImage) {
     const inputsList = Array.from(element.querySelectorAll(validationConfig.inputSelector));
     const submitButton = element.querySelector(validationConfig.submitButtonSelector);
-    
-    toggleButtonState(inputsList, submitButton, validationConfig);
-    inputsList.forEach((inputElement) => {
-      hideInputError(element, inputElement, validationConfig)
-    });
-  }
+  //TODO: потом переписать -  стреляет ошибку по приватному методу класса
+  // toggleButtonState(inputsList, submitButton);
+  //   inputsList.forEach((inputElement) => {
+  //     hideInputError(element, inputElement)
+  //   });
+    inputsList.forEach((formInput) => {
+      const formError = element.querySelector(`#${formInput.id}-error`);
+      formInput.classList.remove(validationConfig.inputErrorClass);
+      formError.classList.remove(validationConfig.errorClass);
+      formError.textContent = '';
+    })
+  submitButton.classList.remove(validationConfig.inactiveButtonClass);
+  submitButton.disabled = false;
+  };
+}
+
+const submitDeactivator =  (element) => {
+  const submitButton = element.querySelector(validationConfig.submitButtonSelector)  
+  submitButton.classList.add(validationConfig.inactiveButtonClass);
+  submitButton.disabled = true;
 }
 
 const openPopup = (element) => {
@@ -90,8 +107,11 @@ const closePopup = (element) => {
 const openProfileEditPopup = () => {
   nameInput.value = currentName.textContent;
   jobInput.value = currentJob.textContent;
+  submitDeactivator(checkProfileContainer);
   clearPopupValidationErrors(popupEditProfile);
   openPopup(popupEditProfile);
+  const profileContainer= new FormValidator(validationConfig, checkProfileContainer);
+  profileContainer.enableValidation();
 };
 
 const profileFormSubmitHandler = (evt) => {
@@ -102,9 +122,7 @@ const profileFormSubmitHandler = (evt) => {
 };
 
 const toggleLike = (evt) => evt.target.classList.toggle('element__like_active');
-
 const removeCard = (evt) => evt.target.closest('.element').remove()
-
 const showPictureInPopup = (evt) => {
   popupImageTitle.innerText = evt.target.closest('.element').innerText; //берем текст c ближайшего эла
   popupImagePhotoUrl.src = evt.target.src; // берем ссылку из объекта
@@ -112,7 +130,6 @@ const showPictureInPopup = (evt) => {
   openPopup(popupImage);
 }
 
-/* Друзья! В очередной раз переименовываю функцию. Каждый ревьювер требует своё название  :( */
 
 function createCard(name, link) {
   const card = elementTemplate.cloneNode(true); // клонируем шаблон
@@ -142,7 +159,10 @@ const addCard = (name, link) => {
 const openPopupPlaceAdd = () => {
   checkPlaceContainer.reset();
   clearPopupValidationErrors(popupPlace);
+  submitDeactivator(popupPlace);
   openPopup(popupPlace);
+  let placeContainer = new FormValidator(validationConfig, checkPlaceContainer);
+  placeContainer.enableValidation();
 };
 
 //отображаем карточку пользователя
@@ -156,11 +176,10 @@ const userCardHandler = (event) => {
 const showInitialCardsOnPage = () =>   initialCards.forEach(element => addCard(element.name, element.link));
 
 showInitialCardsOnPage()
-enableValidation(validationConfig)
 
 //eventListeners
 popupEditProfile.addEventListener('submit', profileFormSubmitHandler);
 checkPlaceContainer.addEventListener('submit', userCardHandler);
 editProfileButton.addEventListener('click', openProfileEditPopup);
-addPlaceButton.addEventListener('click', openPopupPlaceAdd);
+addPlaceButton.addEventListener('click', openPopupPlaceAdd)
 
