@@ -1,12 +1,15 @@
 //переменные
 import {initialCards} from './initialCards.js';
-import {FormValidator} from './FormValidator.js';
 import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+
+export const popupImage = document.querySelector('.popup_type_image'); //ищем попап открытия изображений (попап 3)
+export const popupImagePhotoUrl = document.querySelector('.popup__image') //ищем картинку места (попап имг)
+export const popupImageTitle = document.querySelector('.popup__image-title')// ищем название места (попап имг)
 
 const popupParent = document.querySelector('.popups'); // общая секция для всех попапов
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');// ищем обычный попап (попап1)
 const popupPlace = document.querySelector('.popup_type_new-place'); // ищем попап новых мест (попап 2)
-export const popupImage = document.querySelector('.popup_type_image'); //ищем попап открытия изображений (попап 3)
 const editProfileButton = document.querySelector('.profile__edit-button'); // ищем кнопку вызова попапа редактирования профиля
 const addPlaceButton = document.querySelector('.profile__add-button'); // ищем кнопку вызова попапа добавления нового места
 const checkProfileContainer = document.querySelector('.popup__container_type_profile'); // определяем форму редактирования профиля
@@ -18,11 +21,6 @@ const jobInput = document.querySelector('.popup__input_type_job'); //ищем и
 const popupPlaceName = document.querySelector('.popup__input_type_title'); // ищем инпут названия места (попап 2)
 const popupPlaceUrl = document.querySelector('.popup__input_type_url'); // ищем инпут ссылки (попап 2)
 const elements = document.querySelector('.elements'); //определяем место где будут создаваться карточки
-export const popupImagePhotoUrl = document.querySelector('.popup__image') //ищем картинку места (попап имг)
-export const popupImageTitle = document.querySelector('.popup__image-title')// ищем название места (попап имг)
-const elementTemplate = document.querySelector('#template').content; // ищем шаблон темплейта для клонирования карточек // v class
-
-
 
 export const validationConfig = {
   formSelector: '.popup__container',
@@ -64,7 +62,7 @@ function setListenersOnPopup (element) {
 function removeListenersOnPopup(element) {
   document.removeEventListener('keydown', escapeHandler); // клик по эккейпу
   element.removeEventListener('mousedown', overlayHandlerClose) // клик в оверлей
-  popupParent.addEventListener('click', handlePopupClose) //клик в крест
+  popupParent.removeEventListener('click', handlePopupClose) //клик в крест
 }
 
 // function
@@ -72,11 +70,7 @@ const clearPopupValidationErrors = (element) => {
   if (element !==  popupImage) {
     const inputsList = Array.from(element.querySelectorAll(validationConfig.inputSelector));
     const submitButton = element.querySelector(validationConfig.submitButtonSelector);
-  //TODO: потом переписать -  стреляет ошибку по приватному методу класса
-  // toggleButtonState(inputsList, submitButton);
-  //   inputsList.forEach((inputElement) => {
-  //     hideInputError(element, inputElement)
-  //   });
+  
     inputsList.forEach((formInput) => {
       const formError = element.querySelector(`#${formInput.id}-error`);
       formInput.classList.remove(validationConfig.inputErrorClass);
@@ -94,7 +88,7 @@ const submitDeactivator =  (element) => {
   submitButton.disabled = true;
 }
 
-const openPopup = (element) => {
+export const openPopup = (element) => {
   element.classList.add('popup_active');
   setListenersOnPopup(element);
 }
@@ -153,7 +147,7 @@ const profileFormSubmitHandler = (evt) => {
 const pasteCardIntoDocument = (element) => elements.prepend(element);
 
 const addCard = (name, link) => {
-  const cardOnShow = createCard(name, link);
+  const cardOnShow = new Card(name,link).createCard();
   pasteCardIntoDocument(cardOnShow);
 };
 
@@ -174,7 +168,14 @@ const userCardHandler = (event) => {
 };
 
 // добавляем каждую карту на страницу. данные берутся из массива initial.cards.
-const showInitialCardsOnPage = () =>   initialCards.forEach(element => addCard(element.name, element.link));
+const showInitialCardsOnPage = () => initialCards.forEach((element) => {
+  const cardTemplate = new Card(element.name, element.link)
+  const card = cardTemplate.createCard();
+  // console.warn('if you show it - you will die in 7th day!');
+  pasteCardIntoDocument(card);
+  }
+)
+
 
 showInitialCardsOnPage()
 

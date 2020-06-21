@@ -1,7 +1,3 @@
-/*
-класс - шаблон в классе все отсылки на свойства конфига должны быть с this. -
-*/
-
 export class FormValidator {
     constructor (validationConfig, form) {
         this._form = form; // посмотреть на приватность
@@ -26,12 +22,10 @@ export class FormValidator {
         errorElement.textContent = '';
     };
     
-      // проверка валидности инпутов - бывшая isValid: переписал под тернарник 4fun 
     _checkInputValidity = function(form, inputElement) {
         !inputElement.validity.valid ? 
             this._showInputError(form, inputElement, inputElement.validationMessage) :
             this._hideInputError(form, inputElement);
-        
     };
     //проверка валидности по каждому элементу
     _hasInvalidInput = (inputList) => {
