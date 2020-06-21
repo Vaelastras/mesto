@@ -116,33 +116,6 @@ const profileFormSubmitHandler = (evt) => {
   closePopup(popupEditProfile);
 };
 
-// const toggleLike = (evt) => evt.target.classList.toggle('element__like_active');
-// const removeCard = (evt) => evt.target.closest('.element').remove()
-// const showPictureInPopup = (evt) => {
-//   popupImageTitle.textContent = evt.target.closest('.element').textContent; //берем текст c ближайшего эла
-//   popupImagePhotoUrl.src = evt.target.src; // берем ссылку из объекта
-//   popupImagePhotoUrl.alt = evt.target.alt; // установим альт
-//   openPopup(popupImage);
-// }
-
-
-// function createCard(name, link) {
-//   const card = elementTemplate.cloneNode(true); // клонируем шаблон
-//   const cardImage = card.querySelector('.element__photo'); // находим изображение
-//   const cardTitle = card.querySelector('.element__title'); // находим титл
-//   const likeButton = card.querySelector('.element__like'); // находим лайк
-//   const removeButton = card.querySelector('.element__trash'); // находим кнопку удаления
-
-//   cardTitle.textContent = name; // присваиваем текст на параметр функции
-//   cardImage.src = link; // присваиваем сслку на параметр
-//   cardImage.setAttribute('alt', name); // устанавливаем аттрибут альт для картинки с названием нейма
-//   likeButton.addEventListener('click', toggleLike);
-//   removeButton.addEventListener('click', removeCard);
-//   cardImage.addEventListener('click', showPictureInPopup);
-
-//   return card;   // возвращаем карту с элементами слушателями и параметрами
-// }
-
 //добавить карты на страницу.
 const pasteCardIntoDocument = (element) => elements.prepend(element);
 
