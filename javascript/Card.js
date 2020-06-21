@@ -2,13 +2,14 @@ import {popupImagePhotoUrl, popupImageTitle, popupImage, openPopup} from './inde
 
 export class Card {
 
-  constructor (name, link) {
+  constructor (name, link, cardSelector) {
     this._name = name;
     this._link = link;
+    this._cardSelector = cardSelector;
   }
 
   _getTemplateLayout () {
-    const elementTemplate = document.querySelector('#template').content.querySelector('.element').cloneNode(true); // ищем шаблон темплейта для клонирования карточек
+    const elementTemplate = document.querySelector(this._cardSelector).content.querySelector('.element').cloneNode(true); // ищем шаблон темплейта для клонирования карточек
     // console.log(elementTemplate);
     return elementTemplate;
   }

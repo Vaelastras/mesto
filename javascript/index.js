@@ -21,6 +21,7 @@ const jobInput = document.querySelector('.popup__input_type_job'); //ищем и
 const popupPlaceName = document.querySelector('.popup__input_type_title'); // ищем инпут названия места (попап 2)
 const popupPlaceUrl = document.querySelector('.popup__input_type_url'); // ищем инпут ссылки (попап 2)
 const elements = document.querySelector('.elements'); //определяем место где будут создаваться карточки
+// const elementTemplate = document.querySelector('#template').content; 
 
 export const validationConfig = {
   formSelector: '.popup__container',
@@ -119,8 +120,8 @@ const profileFormSubmitHandler = (evt) => {
 //добавить карты на страницу.
 const pasteCardIntoDocument = (element) => elements.prepend(element);
 
-const addCard = (name, link) => {
-  const cardOnShow = new Card(name,link).createCard();
+const addCard = (name, link, cardTemplateSelector) => {
+  const cardOnShow = new Card(name, link, '#template').createCard();
   pasteCardIntoDocument(cardOnShow);
 };
 
@@ -142,7 +143,7 @@ const userCardHandler = (event) => {
 
 // добавляем каждую карту на страницу. данные берутся из массива initial.cards.
 const showInitialCardsOnPage = () => initialCards.forEach((element) => {
-  const cardTemplate = new Card(element.name, element.link)
+  const cardTemplate = new Card(element.name, element.link, '#template')
   const card = cardTemplate.createCard();
   // console.warn('if you show it - you will die in 7th day!');
   pasteCardIntoDocument(card);
