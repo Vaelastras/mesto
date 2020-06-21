@@ -49,7 +49,7 @@ export class FormValidator {
             buttonElement.disabled = false;
         }
     };
-    _setEventListeners = (form) => {
+    _setEventListeners = () => {
         const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));  // Найдём все поля формы и сделаем из них массив
         const buttonElement = this._form.querySelector(this._submitButtonSelector); // Найдём в текущей форме кнопку отправки
         this._toggleButtonState(inputList, buttonElement);  // Вызовем toggleButtonState, чтобы не ждать ввода данных в поля
