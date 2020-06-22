@@ -99,6 +99,12 @@ const closePopup = (element) => {
   removeListenersOnPopup(element);
 }
 
+const profileContainer= new FormValidator(validationConfig, checkProfileContainer);
+profileContainer.enableValidation();
+
+const placeContainer = new FormValidator(validationConfig, checkPlaceContainer);
+placeContainer.enableValidation();
+
 //получить текущее имя пользователя в инпуты
 const openProfileEditPopup = () => {
   nameInput.value = currentName.textContent;
@@ -106,8 +112,6 @@ const openProfileEditPopup = () => {
   submitDeactivator(checkProfileContainer);
   clearPopupValidationErrors(popupEditProfile);
   openPopup(popupEditProfile);
-  const profileContainer= new FormValidator(validationConfig, checkProfileContainer);
-  profileContainer.enableValidation();
 };
 
 const profileFormSubmitHandler = (evt) => {
@@ -130,8 +134,6 @@ const openPopupPlaceAdd = () => {
   clearPopupValidationErrors(popupPlace);
   submitDeactivator(popupPlace);
   openPopup(popupPlace);
-  const placeContainer = new FormValidator(validationConfig, checkPlaceContainer);
-  placeContainer.enableValidation();
 };
 
 //отображаем карточку пользователя

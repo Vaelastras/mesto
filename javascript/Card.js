@@ -1,3 +1,7 @@
+//Антон, приветствую! По рекомендациям все поправил - теперь должно быть вообще все супер! 
+//Хотел добавить большей интерактивности на отрисовке кард: сделать красивые блюры - но тогда будет отступление от макета - а это не гуд :( Поэтому будет простое выбеливание при ховереэ
+//Отдельно спасибо за простые и понятные комментарии, иной раз приходится пытать наставника игрой в шарады :)
+
 import {popupImagePhotoUrl, popupImageTitle, popupImage, openPopup} from './index.js'
 
 export class Card {
@@ -10,7 +14,6 @@ export class Card {
 
   _getTemplateLayout () {
     const elementTemplate = document.querySelector(this._cardSelector).content.querySelector('.element').cloneNode(true); // ищем шаблон темплейта для клонирования карточек
-    // console.log(elementTemplate);
     return elementTemplate;
   }
 
@@ -29,6 +32,7 @@ export class Card {
 
   _removeCard() {
     this._card.remove();
+    this._card = null;
   } 
 
   _setCardListeners () {
@@ -43,13 +47,11 @@ export class Card {
     this._card.querySelector('.element__photo').removeEventListener('click', () => this._showPictureInPopup());
   }
 
-
   _showPictureInPopup = () => {
     popupImageTitle.textContent = this._name; //берем текст
     popupImagePhotoUrl.alt = this._name; // установим альт
     popupImagePhotoUrl.src = this._link; // берем ссылку из объекта
-    // console.log(popupImagePhotoUrl, popupImageTitle)
     openPopup(popupImage);
   }
-  
+
 }
