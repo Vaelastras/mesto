@@ -68,7 +68,6 @@ export const validationConfig = {
 // }
 
 // function
-// Антон, не совсем понял что имеется в виду под вызовом экземпляра класса 
 const clearPopupValidationErrors = (element) => {
   if (element !==  popupImage) {
     const inputsList = Array.from(element.querySelectorAll(validationConfig.inputSelector));
