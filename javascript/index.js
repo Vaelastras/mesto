@@ -1,13 +1,14 @@
 //переменные
 import {initialCards} from './initialCards.js';
 import {Card} from './Card.js';
+import {popupImage, openPopup, closePopup} from './utils.js';
 import {FormValidator} from './FormValidator.js';
 
-export const popupImage = document.querySelector('.popup_type_image'); //ищем попап открытия изображений (попап 3)
-export const popupImagePhotoUrl = document.querySelector('.popup__image') //ищем картинку места (попап имг)
-export const popupImageTitle = document.querySelector('.popup__image-title')// ищем название места (попап имг)
+// export const popupImage = document.querySelector('.popup_type_image'); //ищем попап открытия изображений (попап 3)
+// export const popupImagePhotoUrl = document.querySelector('.popup__image') //ищем картинку места (попап имг)
+// export const popupImageTitle = document.querySelector('.popup__image-title')// ищем название места (попап имг)
 
-const popupParent = document.querySelector('.popups'); // общая секция для всех попапов
+// export const popupParent = document.querySelector('.popups'); // общая секция для всех попапов
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');// ищем обычный попап (попап1)
 const popupPlace = document.querySelector('.popup_type_new-place'); // ищем попап новых мест (попап 2)
 const editProfileButton = document.querySelector('.profile__edit-button'); // ищем кнопку вызова попапа редактирования профиля
@@ -32,41 +33,42 @@ export const validationConfig = {
   errorClass: 'popup__error_type_active'
 };
 
-// Обработчики закрытия попапа кнопкой
-// user-type handlers
-const escapeHandler = (evt) => {
-  if (evt.key ==='Escape') {
-    const openedPopup = document.querySelector('.popup_active')
-    closePopup(openedPopup)
-  }
-};
+// // Обработчики закрытия попапа кнопкой
+// // user-type handlers
+// const escapeHandler = (evt) => {
+//   if (evt.key ==='Escape') {
+//     const openedPopup = document.querySelector('.popup_active')
+//     closePopup(openedPopup)
+//   }
+// };
 
-const overlayHandlerClose = (evt) => {
-  if (evt.target.classList.contains('popup')) {
-    const openedPopup = document.querySelector('.popup_active');
-    closePopup(openedPopup);
-  }
-};
+// const overlayHandlerClose = (evt) => {
+//   if (evt.target.classList.contains('popup')) {
+//     const openedPopup = document.querySelector('.popup_active');
+//     closePopup(openedPopup);
+//   }
+// };
 
-function handlePopupClose(evt) {
-  if (evt.target.classList.contains('popup__close')) {
-    closePopup(evt.target.closest('.popup'));
-  }
-}
+// function handlePopupClose(evt) {
+//   if (evt.target.classList.contains('popup__close')) {
+//     closePopup(evt.target.closest('.popup'));
+//   }
+// }
 
-function setListenersOnPopup (element) {
-  document.addEventListener('keydown', escapeHandler); // клик по эккейпу
-  element.addEventListener('mousedown', overlayHandlerClose) // клик в оверлей;
-  popupParent.addEventListener('click', handlePopupClose)//клик в крест
-}
+// export function setListenersOnPopup (element) {
+//   document.addEventListener('keydown', escapeHandler); // клик по эккейпу
+//   element.addEventListener('mousedown', overlayHandlerClose) // клик в оверлей;
+//   popupParent.addEventListener('click', handlePopupClose)//клик в крест
+// }
 
-function removeListenersOnPopup(element) {
-  document.removeEventListener('keydown', escapeHandler); // клик по эккейпу
-  element.removeEventListener('mousedown', overlayHandlerClose) // клик в оверлей
-  popupParent.removeEventListener('click', handlePopupClose) //клик в крест
-}
+// function removeListenersOnPopup(element) {
+//   document.removeEventListener('keydown', escapeHandler); // клик по эккейпу
+//   element.removeEventListener('mousedown', overlayHandlerClose) // клик в оверлей
+//   popupParent.removeEventListener('click', handlePopupClose) //клик в крест
+// }
 
 // function
+// Антон, не совсем понял что имеется в виду под вызовом экземпляра класса 
 const clearPopupValidationErrors = (element) => {
   if (element !==  popupImage) {
     const inputsList = Array.from(element.querySelectorAll(validationConfig.inputSelector));
@@ -89,15 +91,15 @@ const submitDeactivator =  (element) => {
   submitButton.disabled = true;
 }
 
-export const openPopup = (element) => {
-  element.classList.add('popup_active');
-  setListenersOnPopup(element);
-}
+// export const openPopup = (element) => {
+//   element.classList.add('popup_active');
+//   setListenersOnPopup(element);
+// }
 
-const closePopup = (element) => {
-  element.classList.remove('popup_active');
-  removeListenersOnPopup(element);
-}
+// const closePopup = (element) => {
+//   element.classList.remove('popup_active');
+//   removeListenersOnPopup(element);
+// }
 
 const profileContainer= new FormValidator(validationConfig, checkProfileContainer);
 profileContainer.enableValidation();

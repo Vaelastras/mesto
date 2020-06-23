@@ -1,8 +1,9 @@
 //Антон, приветствую! По рекомендациям все поправил - теперь должно быть вообще все супер! 
-//Хотел добавить большей интерактивности на отрисовке кард: сделать красивые блюры - но тогда будет отступление от макета - а это не гуд :( Поэтому будет простое выбеливание при ховереэ
+//Хотел добавить большей интерактивности на отрисовке кард: сделать красивые блюры - но тогда будет отступление от макета - а это не гуд :( Поэтому будет простое выбеливание при ховереэx`
 //Отдельно спасибо за простые и понятные комментарии, иной раз приходится пытать наставника игрой в шарады :)
 
-import {popupImagePhotoUrl, popupImageTitle, popupImage, openPopup} from './index.js'
+
+import {popupImagePhotoUrl, popupImageTitle, popupImage, openPopup} from './utils.js'
 
 export class Card {
 
@@ -40,12 +41,12 @@ export class Card {
     this._card.querySelector('.element__trash').addEventListener('click', () => this._removeCard());; // находим кнопку удаления
     this._card.querySelector('.element__photo').addEventListener('click',() => this._showPictureInPopup());
   }
-
-  _removeCardListeners () {
-    this._card.querySelector('.element__like').removeEventListener('click', () => this._toggleLike()); // находим лайк
-    this._card.querySelector('.element__trash').removeEventListener('click', () => this._removeCard()); // находим кнопку удаления
-    this._card.querySelector('.element__photo').removeEventListener('click', () => this._showPictureInPopup());
-  }
+// remove method  => review recommendations
+  // _removeCardListeners () {
+  //   this._card.querySelector('.element__like').removeEventListener('click', () => this._toggleLike()); // находим лайк
+  //   this._card.querySelector('.element__trash').removeEventListener('click', () => this._removeCard()); // находим кнопку удаления
+  //   this._card.querySelector('.element__photo').removeEventListener('click', () => this._showPictureInPopup());
+  // }
 
   _showPictureInPopup = () => {
     popupImageTitle.textContent = this._name; //берем текст

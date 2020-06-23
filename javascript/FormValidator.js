@@ -1,6 +1,6 @@
 export class FormValidator {
     constructor (validationConfig, form) {
-        this._form = form; // посмотреть на приватность
+        this._form = form;
         this._inputSelector = validationConfig.inputSelector;
         this._submitButtonSelector = validationConfig.submitButtonSelector;
         this._inactiveButtonClass = validationConfig.inactiveButtonClass;
