@@ -29,6 +29,7 @@ export class FormValidator {
     };
     //проверка валидности по каждому элементу
     _hasInvalidInput = (inputList) => {
+        // console.dir(inputList);
         return inputList.some((inputElement) => !inputElement.validity.valid);
     };
     //смена состояния кнопки
@@ -52,5 +53,20 @@ export class FormValidator {
             });
         });
     };
+    // дописал метод очистки ошибок
+    clearValidationErrors() {
+    const inputList = Array.from(this._form.querySelectorAll(this._inputSelector)); // определяем инпуты
+    const buttonElement = this._form.querySelector(this._submitButtonSelector); // определяем кнопку
+    // для каждого инпута проводим проверку наличия класса ошибки
+        inputList.forEach(inputElement => {
+            //если находим ошибку то убираем ее
+            if (inputElement.classList.contains(this._inputErrorClass)) {
+            this._hideInputError(this._form, inputElement);
+            }
+        });
+            this._toggleButtonState(inputList, buttonElement);
+    };
+
+
     enableValidation = () =>  this._setEventListeners();
 }
