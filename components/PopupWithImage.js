@@ -4,7 +4,7 @@ export default class PopupWithImage extends Popup {
   constructor(popupSelector){
     super(popupSelector);
   }
-
+ 
   openPopup(name, link){
     super.openPopup();
     this._popupSelector.querySelector('.popup__image-title').alt = name;
