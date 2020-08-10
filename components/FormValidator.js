@@ -29,7 +29,6 @@ export default class FormValidator {
     };
     //проверка валидности по каждому элементу
     _hasInvalidInput = (inputList) => {
-        // console.dir(inputList);
         return inputList.some((inputElement) => !inputElement.validity.valid);
     };
     //смена состояния кнопки
