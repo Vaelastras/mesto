@@ -1,4 +1,5 @@
- 
+
+import './index.css'; // добавьте импорт главного файла стилей
 import {initialCards} from '../components/initialCards.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -59,9 +60,6 @@ openPopupPlaceAdd.setEventListeners();
 const userInfoProfile = new UserInfo(userSetting);
 
 /* ----- end class unit section ----- */
-
-
-
 
 
 
