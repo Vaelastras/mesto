@@ -12,13 +12,13 @@ export default class Popup {
 
   }
 
-  _handleEscClose = (evt) => {
+  _handleEscClose(evt) {
     if (evt.key === 'Escape') {
       this.closePopup()
     }
   }
   
-  _handleOverlayClose = (evt) => {
+  _handleOverlayClose(evt) {
     if (evt.target.classList.contains('popup')) {
       this.closePopup();
     }
@@ -26,7 +26,7 @@ export default class Popup {
 
   setEventListeners() {
     this._popupSelector.querySelector('.popup__close').addEventListener('click', () => this.closePopup())
-    document.addEventListener('keydown', this._handleEscClose);
-    document.addEventListener('click', this._handleOverlayClose);
+    document.addEventListener('keydown',() => this._handleEscClose);
+    document.addEventListener('click', () => this._handleOverlayClose);
   }
 }

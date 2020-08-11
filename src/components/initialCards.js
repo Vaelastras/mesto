@@ -1,26 +1,35 @@
+
+import sochi from '../images/photo-grid-sochi.jpg'
+import elbrus from '../images/photo-grid-elbrus.jpg'
+import kamchatka from '../images/photo-grid-kamchatka-2.jpg'
+import karelia from '../images/place-karelia.jpg'
+import kolsky from '../images/place-kolsky.jpg'
+import kalningrad from '../images/place-kosa.jpg'
+
+
 export const initialCards = [
   {
-      name: 'Cочи',
-      link: './images/photo-grid-sochi.jpg'
+    name: 'Cочи',
+    link: sochi
   },
   {
-      name: 'Эльбрус',
-      link: './images/photo-grid-elbrus.jpg'
+    name: 'Эльбрус',
+    link: elbrus
   },
   {
-      name: 'Камчатка',
-      link: './images/photo-grid-kamchatka-2.jpg'
+    name: 'Камчатка',
+    link: kamchatka
   },
   {
-      name: 'Карелия',
-      link: './images/place-karelia.jpg'
+    name: 'Карелия',
+    link: karelia
   },
   {
-      name: 'Кольский',
-      link: './images/place-kolsky.jpg'
+    name: 'Кольский',
+    link: kolsky
   },
   {
-      name: 'Куршская коса',
-      link: './images/place-kosa.jpg'
+    name: 'Куршская коса',
+    link: kalningrad
   }
 ]
