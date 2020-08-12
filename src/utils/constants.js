@@ -7,6 +7,8 @@ export const validationConfig = {
     errorClass: 'popup__error_type_active'
 };
 
+
+
 export const checkProfileContainer = document.querySelector('.popup__container_type_profile'); // определяем форму редактирования профиля
 export const checkPlaceContainer = document.querySelector('.popup__container_type_card'); // определяем форму, откуда будем тянуть инпуты названия места и ссылку (попап2)
 export const popupImage = document.querySelector('.popup_type_image'); //ищем попап открытия изображений (попап 3)
@@ -23,4 +25,4 @@ export const popupPlace = document.querySelector('.popup_type_new-place'); // и
 export const userSetting = {
     name: currentName,
     job: currentJob
-}
+  }
