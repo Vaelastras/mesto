@@ -24,7 +24,6 @@ export const addPlaceButton = document.querySelector('.profile__add-button'); //
 export const popupPlace = document.querySelector('.popup_type_new-place'); // ищем попап новых мест (попап 2)
 
 
-
 export const userSetting = {
     name: currentName,
     job: currentJob

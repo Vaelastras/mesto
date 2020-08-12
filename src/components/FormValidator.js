@@ -8,24 +8,24 @@ export default class FormValidator {
         this._errorClass = validationConfig.errorClass
     }
     //показ ошибок в спане
-    _showInputError(form, inputElement, errorMessage) {
-        const errorElement = form.querySelector(`#${inputElement.id}-error`);
+    _showInputError(inputElement, errorMessage) {
+        const errorElement = this._form.querySelector(`#${inputElement.id}-error`);
         inputElement.classList.add(this._inputErrorClass);
         errorElement.textContent = errorMessage;
         errorElement.classList.add(this._errorClass);
     };
     //удаление ошибок из спана
-    _hideInputError(form, inputElement) {
-        const errorElement = form.querySelector(`#${inputElement.id}-error`);
+    _hideInputError(inputElement) {
+        const errorElement = this._form.querySelector(`#${inputElement.id}-error`);
         inputElement.classList.remove(this._inputErrorClass);
         errorElement.classList.remove(this._errorClass);
         errorElement.textContent = '';
     };
     
-    _checkInputValidity(form, inputElement) {
+    _checkInputValidity(inputElement) {
         !inputElement.validity.valid ? 
-            this._showInputError(form, inputElement, inputElement.validationMessage) :
-            this._hideInputError(form, inputElement);
+            this._showInputError(inputElement, inputElement.validationMessage) :
+            this._hideInputError(inputElement);
     };
     //проверка валидности по каждому элементу
     _hasInvalidInput(inputList) {
@@ -47,7 +47,7 @@ export default class FormValidator {
         this._toggleButtonState(inputList, buttonElement);  // Вызовем toggleButtonState, чтобы не ждать ввода данных в поля
         inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
-                this._checkInputValidity(this._form, inputElement);
+                this._checkInputValidity(inputElement);
                 this._toggleButtonState(inputList, buttonElement);
             });
         });
@@ -60,7 +60,7 @@ export default class FormValidator {
         inputList.forEach(inputElement => {
             //если находим ошибку то убираем ее
             if (inputElement.classList.contains(this._inputErrorClass)) {
-            this._hideInputError(this._form, inputElement);
+            this._hideInputError(inputElement);
             }
         });
             this._toggleButtonState(inputList, buttonElement);

@@ -4,7 +4,7 @@ import elbrus from '../images/photo-grid-elbrus.jpg'
 import kamchatka from '../images/photo-grid-kamchatka-2.jpg'
 import karelia from '../images/place-karelia.jpg'
 import kolsky from '../images/place-kolsky.jpg'
-import kalningrad from '../images/place-kosa.jpg'
+import kaliningrad from '../images/place-kosa.jpg'
 
 
 export const initialCards = [
@@ -30,6 +30,6 @@ export const initialCards = [
   },
   {
     name: 'Куршская коса',
-    link: kalningrad
+    link: kaliningrad
   }
 ]

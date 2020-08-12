@@ -1,24 +1,24 @@
 
-import './index.css'; // добавьте импорт главного файла стилей
-import {initialCards} from '../components/initialCards.js';
+import './index.css';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import Card from '../components/Card.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
+import {initialCards} from '../utils/initialCards.js';
 import {validationConfig,
-        checkProfileContainer,
-        checkPlaceContainer,
-        userSetting,
-        popupImage,
-        editProfileButton,
-        popupEditProfile,
-        nameInput,
-        jobInput,
-        addPlaceButton,
-        popupPlace,
-        } from '../utils/constants.js'
+  checkProfileContainer,
+  checkPlaceContainer,
+  userSetting,
+  popupImage,
+  editProfileButton,
+  popupEditProfile,
+  nameInput,
+  jobInput,
+  addPlaceButton,
+  popupPlace,
+} from '../utils/constants.js'
 
 //---------------------------
 //      popups validation
@@ -36,6 +36,8 @@ placeContainer.enableValidation();
 //---------------------------
 // photo popup unit class
 const popupWithImage = new PopupWithImage(popupImage);
+popupWithImage.setEventListeners();
+
 // profile popup unit class
 const profileForm = new PopupWithForm(popupEditProfile, {
     submitForm: (item) => {
@@ -65,17 +67,17 @@ const userInfoProfile = new UserInfo(userSetting);
 
 /* render initial card from object */
 const starterCards = new Section({
-  items: initialCards,
+  // items: initialCards,
   renderer: ((item) => {
     renderInitialCards(item);
   })
 }, '.elements');
-starterCards.renderItems();
+starterCards.renderItems(initialCards);
 
 function renderInitialCards(item) {
   const card = new Card(item, '#template', {
     handleCardClick: () => {
-      popupWithImage.setEventListeners();
+  
       popupWithImage.openPopup(item.name, item.link);
     }
   });
