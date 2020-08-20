@@ -16,7 +16,14 @@
     <main class="content">
 
       <section class="profile">
-        <div class="profile__avatar"></div>
+        <div class="profile__image">
+          <div class="profile__avatar"></div>
+          <button class='profile__edit-avatar'></button> 
+        </div>
+          
+      
+        
+        
         <div class="profile__info">
           <div class="profile__row">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -40,7 +47,10 @@
           <button class="element__trash" type="button" aria-label="Удалить"></button>
           <div class="element__row">
               <h2 class="element__title"></h2>
-              <button class="element__like" type="button" aria-label="поставить 'лайк'"></button>
+              <div class="element__like-section">
+                <button class="element__like" type="button" aria-label="поставить 'лайк'"></button>
+                <span class="element__like-counter">0</span>
+              </div>
           </div>
         </div>
       </template>
@@ -112,6 +122,32 @@
             <p class="popup__image-title"></p>
         </div>
       </div>
+
+      <div class="popup popup_type_avatar">
+        <form class="popup__container popup__container_type_avatar" name="popup-avatar" method="GET" action="#" novalidate>
+          <button class="popup__close" type="reset" aria-label="Закрыть"></button>
+          <p class="popup__title">Обновить аватар</p>
+          <fieldset class="popup__inputs">
+            <input
+              class="popup__input popup__input_type_url"
+              type = "url"
+              name = "url"
+              id = "url-input"
+              placeholder = "Ссылка на аватар"
+              required>
+            <span class="popup__error" id="url-input-error"></span>
+          </fieldset>
+          <button class="popup__submit" type="submit">Сохранить</button>
+        </form>
+      </div>
+
+      <div class="popup popup_type_confirm">
+        <form class="popup__container popup__container_type_confirm" name="popup-avatar" method="GET" action="#">
+          <p class="popup__title">Вы уверены?</p>
+          <button class="popup__submit" type="submit">Да</button>
+        </form>
+      </div>
+    
     </section>
   </div>
 </body>
