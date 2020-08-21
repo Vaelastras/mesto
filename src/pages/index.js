@@ -3,6 +3,7 @@ import './index.css';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import Card from '../components/Card.js';
+import Api from '../components/Api.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
@@ -18,6 +19,7 @@ import {validationConfig,
   jobInput,
   addPlaceButton,
   popupPlace,
+  initialApiConfig
 } from '../utils/constants.js'
 
 //---------------------------
@@ -34,6 +36,9 @@ placeContainer.enableValidation();
 //---------------------------
 //      Class unit section
 //---------------------------
+
+const api = new Api(initialApiConfig);
+
 // photo popup unit class
 const popupWithImage = new PopupWithImage(popupImage);
 popupWithImage.setEventListeners();
@@ -77,7 +82,7 @@ starterCards.renderItems(initialCards);
 function renderInitialCards(item) {
   const card = new Card(item, '#template', {
     handleCardClick: () => {
-  
+
       popupWithImage.openPopup(item.name, item.link);
     }
   });

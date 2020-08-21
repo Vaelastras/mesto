@@ -25,4 +25,12 @@ export const popupPlace = document.querySelector('.popup_type_new-place'); // и
 export const userSetting = {
     name: currentName,
     job: currentJob
+}
+
+export const initialApiConfig = {
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-14',
+  headers: {
+    authorization: '3cd7525a-bdb0-4a65-a82d-96b8a4b1711a',
+    'Content-Type': 'application/json'
   }
+}
