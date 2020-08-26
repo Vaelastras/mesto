@@ -10,10 +10,13 @@
   background-position: center;
   background-size: contain;
   border: 0px;
+  display: none;
+
 }
 
-
+/* 
 .element__trash:hover {
   cursor: pointer;
   opacity: .6;
-}
+  transform: scale(1.5);
+} */

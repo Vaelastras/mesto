@@ -3,6 +3,7 @@ export default class Popup {
     this._popupElement = popupElement;
     this._handleEscClose = this._handleEscClose.bind(this)
     this._handleOverlayClose= this._handleOverlayClose.bind(this)
+    this._submitButton = this._popupElement.querySelector('.popup__submit')
   }
 
   openPopup() {
@@ -34,4 +35,9 @@ export default class Popup {
     this._popupElement.querySelector('.popup__close').addEventListener('click', () => this.closePopup())
     
   }
+
+  loaderHandler(textMessage) {
+    this._submitButton.textContent = textMessage
+  }
+  
 }

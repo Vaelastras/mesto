@@ -17,17 +17,14 @@
 
       <section class="profile">
         <div class="profile__image">
-          <div class="profile__avatar"></div>
-          <button class='profile__edit-avatar'></button> 
+          <img class="profile__avatar"/>
+          <button class='profile__edit-avatar' type="button" aria-label="Редактировать аватар"></button> 
         </div>
           
-      
-        
-        
         <div class="profile__info">
           <div class="profile__row">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
+            <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"/>
           </div>
           <p class="profile__job-description">Исследователь океана</p>
         </div>
@@ -76,13 +73,13 @@
             <input
               class = "popup__input popup__input_type_job"
               type = "text"
-              name = "job"
-              id = "job-input"
+              name = "about"
+              id = "about-input"
               placeholder = "Введите профессию"
               minlength = "2"
               maxlength = "200"
               required>
-            <span class="popup__error" id="job-input-error"></span>
+            <span class="popup__error" id="about-input-error"></span>
           </fieldset>
           <button class="popup__submit" type="submit">Сохранить</button>
         </form>
@@ -131,20 +128,21 @@
             <input
               class="popup__input popup__input_type_url"
               type = "url"
-              name = "url"
-              id = "url-input"
+              name = "avatar"
+              id = "url-input-avatar"
               placeholder = "Ссылка на аватар"
               required>
-            <span class="popup__error" id="url-input-error"></span>
+            <span class="popup__error" id="url-input-avatar-error"></span>
           </fieldset>
           <button class="popup__submit" type="submit">Сохранить</button>
         </form>
       </div>
 
       <div class="popup popup_type_confirm">
-        <form class="popup__container popup__container_type_confirm" name="popup-avatar" method="GET" action="#">
+        <form class="popup__container popup__container_type_confirm" name="popup-сonfirm" method="GET" action="#">
+          <button class="popup__close" type="reset" aria-label="Закрыть"></button>
           <p class="popup__title">Вы уверены?</p>
-          <button class="popup__submit" type="submit">Да</button>
+          <button class="popup__submit popup__submit_type_confirm" type="submit" aria-label="Отправить">Да</button>
         </form>
       </div>
     

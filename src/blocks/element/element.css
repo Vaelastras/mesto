@@ -6,6 +6,7 @@
 @import url(__like/element__like.css);
 @import url(__like/_active/element__like_active.css);
 @import url(__trash/element__trash.css);
+@import url(__trash/_type/element__trash_type_active.css);
 
 .element {
   background: white;
