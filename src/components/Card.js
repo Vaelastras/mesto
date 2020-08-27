@@ -20,7 +20,7 @@ export default class Card {
     return elementTemplate;
   }
 
-  createCard() {
+  generateCard() {
     this._card = this._getTemplateLayout(); // клонируем шаблон
 
     const popupImage = this._card.querySelector('.element__photo') // находим имг на карте

@@ -73,13 +73,11 @@ const profileForm = new PopupWithForm(popupProfile, {
     api.patchUserProfile(item)
     .then((res)=> {
       userInfoProfile.setUserInfo(res)
+      profileForm.closePopup()
     })
     .catch((err) => {
       console.log(err);
     })
-    .finally(() => {
-      profileForm.closePopup()
-  })
   }
 })
 
@@ -89,14 +87,12 @@ const openPopupPlaceAdd = new PopupWithForm(popupPlace, {
   submitForm: (item) => {
     api.postUserCard(item)
     .then((item) => {
-      renderInitialCards(item)
+      createCard(item)
+      openPopupPlaceAdd.closePopup()
     })
     .catch((err) => {
       console.log(err);
     })
-    .finally(() => {
-      openPopupPlaceAdd.closePopup()
-  })
   }
 })
 openPopupPlaceAdd.setEventListeners();
@@ -107,12 +103,12 @@ openPopupConfirm.setEventListeners();
 /* ----- end class unit section ----- */
 
 const starterCards = new Section({
-  renderer: (item => renderInitialCards(item))
+  renderer: (item => createCard(item))
 }, '.elements');
 
 
 //генерация карты
-function renderInitialCards(item) {
+function createCard(item) {
   const card = new Card(item, '#template', myID, {
     
     handleCardClick: () => {
@@ -156,7 +152,7 @@ function renderInitialCards(item) {
     },
 
   })
-  starterCards.addItem(card.createCard())
+  starterCards.addItem(card.generateCard())
 }
 
 
