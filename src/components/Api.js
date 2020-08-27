@@ -21,7 +21,6 @@ export default class Api {
       headers: this._headers
     })
     .then(this._handleResponse)
-    // .catch(this._handleResponseError)
   }
 
   
@@ -32,7 +31,6 @@ export default class Api {
     }
     )
     .then(this._handleResponse)
-    // .catch(this._handleResponseError)
   }
   
   //установка данных профиля  
