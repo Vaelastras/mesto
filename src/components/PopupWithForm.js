@@ -7,7 +7,7 @@ export default class PopupWithForm extends Popup {
 }
 
 //метод собирает все поля формы
-  getInputValues() {
+  _getInputValues() {
       this._inputList = Array.from(this._popupElement.querySelectorAll('.popup__input')); // найти все инпуты в попапе и сделать из них массив
       this._formValue = {}; // создать объект 
       this._inputList.forEach(item => { // в массиве инпутов для каждого элемента нужно
@@ -20,7 +20,7 @@ export default class PopupWithForm extends Popup {
     this._popupElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
       this.loaderHandler('Сохранение...');
-      this._submitForm(this.getInputValues())
+      this._submitForm(this._getInputValues())
     });
     super.setEventListeners();
   }
