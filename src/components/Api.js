@@ -1,19 +1,18 @@
 export default class Api {
   constructor({baseUrl, userID, headers}) {
     this._baseUrl = baseUrl;
-    this._headers = headers,
-    this.userID = userID
+    this._headers = headers;
+    this.userID = userID;
   }
 
   // обработчик респонсов сервера
   _handleResponse(res){
-    if (res.ok) return res.json()
-    return Promise.reject(`Error: ${res.status}`)
-  }
-
-  //обработчик ошибок ответа с сервера
-  _handleResponseError(err){
-    return Promise.reject(`Ошибка ${err.message}`)
+    if (res.ok) {
+      return res.json();
+      } else {
+      return Promise.reject(`Error! : ${res.status}`)
+    }
+    
   }
 
   // получение начальных данных от пользователя
@@ -22,7 +21,7 @@ export default class Api {
       headers: this._headers
     })
     .then(this._handleResponse)
-    .catch(this._handleResponseError)
+    // .catch(this._handleResponseError)
   }
 
   
@@ -33,7 +32,7 @@ export default class Api {
     }
     )
     .then(this._handleResponse)
-    .catch(this._handleResponseError)
+    // .catch(this._handleResponseError)
   }
   
   //установка данных профиля  
@@ -48,7 +47,6 @@ export default class Api {
         })
       })
       .then(this._handleResponse)
-      .catch(this._handleResponseError)
   }
 
 
@@ -62,10 +60,7 @@ export default class Api {
       })
     })
       .then(this._handleResponse)
-      .catch(this._handleResponseError)
   }
-
- 
 
  postUserCard(item) {
   return fetch(`${this._baseUrl}/cards`,  {
@@ -77,7 +72,6 @@ export default class Api {
       })
     })
     .then(this._handleResponse)
-    .catch(this._handleResponseError)
   }
 
   //  постановка лаек
@@ -88,7 +82,6 @@ export default class Api {
       }
     )
       .then(this._handleResponse)
-      .catch(this._handleResponseError)
   }
 
   // снятие лаека
@@ -99,7 +92,6 @@ export default class Api {
       }
     )
       .then(this._handleResponse)
-      .catch(this._handleResponseError)
   }
 
   // удалить карточку
@@ -110,8 +102,6 @@ export default class Api {
       }
     )
       .then(this._handleResponse)
-      .catch(this._handleResponseError)
   }
-  
 
 }

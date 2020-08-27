@@ -47,37 +47,48 @@ const popupWithImage = new PopupWithImage(popupImage);
 popupWithImage.setEventListeners();
 
 const openPopupAvatar = new PopupWithForm(popupAvatar, {
-  submitForm: () => {
-    const inputValie = openPopupAvatar.getInputValues();
-    api.patchAvatar(inputValie)
+  submitForm: (item) => {
+    api.patchAvatar(item)
       .then((data) => {
         userInfoProfile.setUserAvatar(data);
         openPopupAvatar.closePopup()
+      })
+      .catch((err) => {
+        console.log(err);
       })
   }
 })
 openPopupAvatar.setEventListeners();
 
 const profileForm = new PopupWithForm(popupProfile, {
-  submitForm: () => {
-    const inputsProfileArray = profileForm.getInputValues();
-    api.patchUserProfile(inputsProfileArray)
+  submitForm: (item) => {
+    api.patchUserProfile(item)
     .then((res)=> {
       userInfoProfile.setUserInfo(res)
     })
-    profileForm.closePopup()
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      profileForm.closePopup()
+  })
   }
 })
+
 profileForm.setEventListeners();
 
 const openPopupPlaceAdd = new PopupWithForm(popupPlace, {
-  submitForm: () => {
-    const inputsProfileArray = openPopupPlaceAdd.getInputValues();
-    api.postUserCard(inputsProfileArray)
+  submitForm: (item) => {
+    api.postUserCard(item)
     .then((item) => {
-    renderInitialCards(item)
-    popenPopupPlaceAdd.closePopup()
+      renderInitialCards(item)
     })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      openPopupPlaceAdd.closePopup()
+  })
   }
 })
 openPopupPlaceAdd.setEventListeners();
@@ -95,7 +106,7 @@ const starterCards = new Section({
 //генерация карты
 function renderInitialCards(item) {
   const card = new Card(item, '#template', myID, {
-
+    
     handleCardClick: () => {
       popupWithImage.openPopup(item.name, item.link);
     },
@@ -103,8 +114,13 @@ function renderInitialCards(item) {
     handleRemoveCard: () => {
       openPopupConfirm.openPopup();
       openPopupConfirm.setHandleSubmit(() => {
-          api.deleteCard(card._id);
-          card.removeCard();
+          api.deleteCard(card._id)
+            .then(() => {
+              card.removeCard();
+            })
+            .catch((err) => {
+              console.log(err);
+            })
         }
       );
     },
@@ -115,6 +131,9 @@ function renderInitialCards(item) {
           card.counterLike(item.likes); // записываем в разметку длину массива из ответа сервера
           card.toggleLike(); // меняем стиль лайка
         })
+        .catch((err) => {
+          console.log(err);
+        })
     },
 
     handleLikeRemover: () => {
@@ -123,22 +142,23 @@ function renderInitialCards(item) {
           card.counterLike(item.likes);
           card.toggleLike();
         })
+        .catch((err) => {
+          console.log(err);
+        })
     },
 
   })
   starterCards.addItem(card.createCard())
 }
 
-//TODO: промис.алл тупит безбожно - оставлю пока что так, потом на рефакторинге перепишу
-api.getInitialCards()
-  .then((res) => {
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, res]) => {
+    userInfoProfile.setUserInfo(userData);
     starterCards.renderItems(res);
   })
-
-api.getUserInfo()
-  .then((userData) => {
-    userInfoProfile.setUserInfo(userData)
-})
+  .catch(err => console.log(err))
+  
 
 //---------------------------
 //      Popup handlers section

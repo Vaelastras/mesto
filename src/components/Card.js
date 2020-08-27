@@ -1,5 +1,6 @@
 export default class Card {
   constructor (data, cardSelector, myID, {handleCardClick, handleRemoveCard, handleLikeSet, handleLikeRemover}) {
+  
     this._name = data.name;
     this._link = data.link;
     this._id = data._id;
@@ -21,11 +22,20 @@ export default class Card {
 
   createCard() {
     this._card = this._getTemplateLayout(); // клонируем шаблон
-    this._card.querySelector('.element__photo').src = this._link; // находим изображение и присваиваем ссылку на параметр
-    this._card.querySelector('.element__photo').alt = this._name; // устанавливаем аттрибут альт для картинки с названием нейма
-    this._card.querySelector('.element__title').textContent = this._name; // находим титл и присваиваем текст на параметр функции
-    this._card.id = this._id;
-    this._card.querySelector('.element__like-counter').textContent = `${this._likes.length}`; //вывести длину массива как значение количества лайков
+
+    const popupImage = this._card.querySelector('.element__photo') // находим имг на карте
+    const popupImageText = this._card.querySelector('.element__title') // находим название карты
+    const likeCounter = this._card.querySelector('.element__like-counter')
+
+    popupImage.src = this._link; // находим изображение и присваиваем ссылку на параметр
+    popupImage.alt = this._name; // устанавливаем аттрибут альт для картинки с названием нейма
+    popupImageText.textContent = this._name; // находим титл и присваиваем текст на параметр функции
+    likeCounter.textContent = `${this._likes.length}`; //вывести длину массива как значение количества лайков
+
+     if (this._likes.find((like) => like._id === this._myID)) {
+      this._card.querySelector('.element__like').classList.add('element__like_active');
+    };
+
   
     if (this._owner._id === this._myID) {  // если создатель карты - я, то навесить на карту кнопку удаления
       this._card.querySelector('.element__trash').classList.add('element__trash_type_active')
