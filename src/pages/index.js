@@ -43,6 +43,14 @@ const userInfoProfile = new UserInfo(userSetting);// userprofile unit class
 const api = new Api(apiConfig);
 const myID = api.userID;
 
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, res]) => {
+    userInfoProfile.setUserInfo(userData);
+    starterCards.renderItems(res);
+  })
+  .catch(err => console.log(err))
+  
+
 const popupWithImage = new PopupWithImage(popupImage);
 popupWithImage.setEventListeners();
 
@@ -152,13 +160,7 @@ function renderInitialCards(item) {
 }
 
 
-Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([userData, res]) => {
-    userInfoProfile.setUserInfo(userData);
-    starterCards.renderItems(res);
-  })
-  .catch(err => console.log(err))
-  
+
 
 //---------------------------
 //      Popup handlers section
