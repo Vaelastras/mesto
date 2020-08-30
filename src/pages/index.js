@@ -87,7 +87,7 @@ const openPopupPlaceAdd = new PopupWithForm(popupPlace, {
   submitForm: (item) => {
     api.postUserCard(item)
     .then((item) => {
-      createCard(item)
+      createCard(item, false)
       openPopupPlaceAdd.closePopup()
     })
     .catch((err) => {
@@ -103,12 +103,12 @@ openPopupConfirm.setEventListeners();
 /* ----- end class unit section ----- */
 
 const starterCards = new Section({
-  renderer: (item => createCard(item))
+  renderer: (item => createCard(item, true))
 }, '.elements');
 
 
 //генерация карты
-function createCard(item) {
+function createCard(item, boolean) {
   const card = new Card(item, '#template', myID, {
     
     handleCardClick: () => {
@@ -152,7 +152,10 @@ function createCard(item) {
     },
 
   })
-  starterCards.addItem(card.generateCard())
+  if (boolean === true) {starterCards.addItemAppend(card.generateCard())}
+  else starterCards.addItemPrepend(card.generateCard())
+
+  
 }
 
 
