@@ -1,8 +1,7 @@
 export default class Api {
-  constructor({baseUrl, userID, headers}) {
+  constructor({baseUrl, headers}) {
     this._baseUrl = baseUrl;
     this._headers = headers;
-    this.userID = userID;
   }
 
   // обработчик респонсов сервера
@@ -12,7 +11,7 @@ export default class Api {
       } else {
       return Promise.reject(`Error! : ${res.status}`)
     }
-    
+
   }
 
   // получение начальных данных от пользователя
@@ -23,7 +22,7 @@ export default class Api {
     .then(this._handleResponse)
   }
 
-  
+
   // получение серверных карточек
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
@@ -32,8 +31,8 @@ export default class Api {
     )
     .then(this._handleResponse)
   }
-  
-  //установка данных профиля  
+
+  //установка данных профиля
   patchUserProfile(data) {
     return fetch(`${this._baseUrl}/users/me`,
       {

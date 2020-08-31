@@ -44,7 +44,7 @@ export const userSetting = {
 
 export const apiConfig = {
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-14',
-  userID: '434a80edab55397905cbc176',
+  // userID: '434a80edab55397905cbc176',
   headers: {
     authorization: '3cd7525a-bdb0-4a65-a82d-96b8a4b1711a',
     'Content-Type': 'application/json'

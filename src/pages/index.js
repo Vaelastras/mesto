@@ -41,15 +41,99 @@ avatarContainer.enableValidation()
 //---------------------------
 const userInfoProfile = new UserInfo(userSetting);// userprofile unit class
 const api = new Api(apiConfig);
-const myID = api.userID;
+
+
+const openPopupPlaceAdd = new PopupWithForm(popupPlace, {
+  submitForm: (item) => {
+    api.postUserCard(item)
+      .then((item) => {
+        createCard(item, false)
+        openPopupPlaceAdd.closePopup()
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+})
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, res]) => {
     userInfoProfile.setUserInfo(userData);
+    const myID = userData._id
+
+    const openPopupPlaceAdd = new PopupWithForm(popupPlace, {
+      submitForm: (item) => {
+        api.postUserCard(item)
+          .then((item) => {
+            createCard(item, false)
+            openPopupPlaceAdd.closePopup()
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      }
+    })
+
+    const starterCards = new Section({
+      renderer: (item => createCard(item, true))
+    }, '.elements');
     starterCards.renderItems(res);
+
+
+    openPopupPlaceAdd.setEventListeners();
+
+    function createCard(item, boolean) {
+      const card = new Card(item, '#template', myID, {
+
+        handleCardClick: () => {
+          popupWithImage.openPopup(item.name, item.link);
+        },
+
+        handleRemoveCard: () => {
+          openPopupConfirm.openPopup();
+          openPopupConfirm.setHandleSubmit(() => {
+              api.deleteCard(card._id)
+                .then(() => {
+                  card.removeCard();
+                })
+                .catch((err) => {
+                  console.log(err);
+                })
+            }
+          );
+        },
+
+        handleLikeSet: () => {
+          api.putLike(item._id) // обмен данными с сервером
+            .then((item) => {
+              card.counterLike(item.likes); // записываем в разметку длину массива из ответа сервера
+              card.toggleLike(); // меняем стиль лайка
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+        },
+
+        handleLikeRemover: () => {
+          api.deleteLike(item._id)
+            .then((item) => {
+              card.counterLike(item.likes);
+              card.toggleLike();
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+        },
+
+      })
+      if (boolean === true) {starterCards.addItemAppend(card.generateCard())}
+      else starterCards.addItemPrepend(card.generateCard())
+
+    }
+
   })
   .catch(err => console.log(err))
-  
+
 
 const popupWithImage = new PopupWithImage(popupImage);
 popupWithImage.setEventListeners();
@@ -83,80 +167,15 @@ const profileForm = new PopupWithForm(popupProfile, {
 
 profileForm.setEventListeners();
 
-const openPopupPlaceAdd = new PopupWithForm(popupPlace, {
-  submitForm: (item) => {
-    api.postUserCard(item)
-    .then((item) => {
-      createCard(item, false)
-      openPopupPlaceAdd.closePopup()
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  }
-})
-openPopupPlaceAdd.setEventListeners();
 
 const openPopupConfirm = new PopupWithConfirm(popupConfirm)
 openPopupConfirm.setEventListeners();
 
 /* ----- end class unit section ----- */
 
-const starterCards = new Section({
-  renderer: (item => createCard(item, true))
-}, '.elements');
 
 
 //генерация карты
-function createCard(item, boolean) {
-  const card = new Card(item, '#template', myID, {
-    
-    handleCardClick: () => {
-      popupWithImage.openPopup(item.name, item.link);
-    },
-
-    handleRemoveCard: () => {
-      openPopupConfirm.openPopup();
-      openPopupConfirm.setHandleSubmit(() => {
-          api.deleteCard(card._id)
-            .then(() => {
-              card.removeCard();
-            })
-            .catch((err) => {
-              console.log(err);
-            })
-        }
-      );
-    },
-
-    handleLikeSet: () => {
-      api.putLike(item._id) // обмен данными с сервером
-        .then((item) => {      
-          card.counterLike(item.likes); // записываем в разметку длину массива из ответа сервера
-          card.toggleLike(); // меняем стиль лайка
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    },
-
-    handleLikeRemover: () => {
-      api.deleteLike(item._id)
-        .then((item) => {
-          card.counterLike(item.likes);
-          card.toggleLike();
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    },
-
-  })
-  if (boolean === true) {starterCards.addItemAppend(card.generateCard())}
-  else starterCards.addItemPrepend(card.generateCard())
-
-  
-}
 
 
 
