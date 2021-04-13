@@ -25,6 +25,7 @@ import {
         avatarEditButton
                         } from '../utils/constants.js'
 
+import './index.css';
 //---------------------------
 //      popups validation
 //---------------------------
